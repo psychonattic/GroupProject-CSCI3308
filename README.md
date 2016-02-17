@@ -48,4 +48,5 @@ Three separate tables for the requirements:
  Link to project tracking software: make sure instructor and TAs have access
  Be sure to continue to use this throughout the semester! Even though these are small projects, the point is to practice the  methodologies and tools used in industry!
 
-## Project plan: created from your Project Tracking software. Copy-paste the plan (or screenshot of) from your project tracking software into the repository.
+## Project plan: 
+created from your Project Tracking software. Copy-paste the plan (or screenshot of) from your project tracking software into the repository.
