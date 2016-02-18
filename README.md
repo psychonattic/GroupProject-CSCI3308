@@ -61,7 +61,7 @@ To make players smile while combining our love of memes and board game.
   * As a user I want to be able to win the game by bankrupting the other players. 
     * ID Number: 9
     * Story Points: 7
-  As a user I want to be able to play against at least one other human player.
+  * As a user I want to be able to play against at least one other human player.
     * ID Number: 10
     * Story Points: 42
 
@@ -89,4 +89,4 @@ Agile Process
 [Trello Link Here](https://trello.com/b/IyxuIwpX/meme-monopoly)
 
 ## Project plan: 
-created from your Project Tracking software. Copy-paste the plan (or screenshot of) from your project tracking software into the repository.
+![alt text](https://cloud.githubusercontent.com/assets/14183096/13134718/e07562dc-d5c6-11e5-95ed-69e5f7f78775.png "Trello Board Screenshot")
