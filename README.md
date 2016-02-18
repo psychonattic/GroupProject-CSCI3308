@@ -7,47 +7,86 @@
  * Joel Barkley: Psychonattic
  * Nathan Carmine: ncarmine
 
-## (Title)
+## Meme Monopoly
 
 ## Description:
-Short description of the project (help explain to us what you are doing)
+An open source Monopoly clone, utilizing popular memes for the users’ entertainment.
 
 ## Vision Statement:
-(what you would tell potential customers) Be sure to follow the guidelines from lecture!
+To perpetuate meme culture through the timeless game of monopoly.
 
 ## Motivation: 
-for working on this particular project (Why would you develop this?)
+To make players smile while combining our love of memes and board game.
 
 ## Risks: 
-to project completion (these could include:
-Working environment or language new to some team members,
-No prior experience working with the people on the team,
-Lack of availability of some needed resource, etc.)
+ * Limited experience with pygames framework
+ * Cross-platform difficulties (Windows, Mac OS, Linux, etc.)
+ * Schedule conflicts among group members
+ * No prior experience working with the group members
+ * Legal/copyright questions
 
 ## Mitigation strategy for dealing with the risk:
+ * We will each research Pygames to familiarize ourselves with it
+ * We can perform development on the school computers, giving us equal development environments
+ * We will only use open-source graphics or create our own to take away legal risk
+ * We will meet regularly at predefined times to discuss the project, using online tools to schedule
 
-## List of requirements: for the project
-Three separate tables for the requirements:
-* User Requirements
-* Functional Requirements
-* Non-Functional Requirements
- Each requirement must have a unique ID number written in the Agile format: “As a [role], I want to [do X] so that I can [benefit with Y]”
- Each requirement must have a size. You have two options for sizing:
-* Agile sizing – story points
-* Time estimate to complete
- All stories should be sized to be completed in less than 8 hours (approximately, and something equivalent to a day or less in  Agile story points). If your story is bigger than that, then break it up into smaller stories.
- [optional] you can add priority (Critical, High, Med, Low, Nice-to-have)
- [optional] you can add topic/area (e.g., Login, Profile, DB, etc.)
- [optional] you can add user type (e.g., Admin, end user, potential customer,…)
+## User Requirements
+  * As a user I want an Intuitive UI so that I can easily use the program.
+    * ID Number: 1
+    * Story Points: 40
+  * As a user I want to see the current status of the board so I can make gameplay decisions.
+    * ID Number: 2
+    * Story Points: 35
+  * As a user I want to know where my game piece is to make buying and selling decisions in-game.
+    * ID Number: 3
+    * Story Points: 20
+  * As a user I want to know where other players' game pieces are in order to make gameplay decisions.
+    * ID Number: 4
+    * Story Points: 25
+  * As a user I want the game to save the game progress so that I can play in discrete sessions.
+    * ID Number: 5
+    * Story Points: 10
+
+## Functional Requirements
+  * As a user I want a single player mode so that I can play if I don’t have another person to play with. (AI)
+    * ID Number: 6
+    * Story Points: 45
+  * As a user I need to be able to buy properties and gain money from chance and community chest properties so that I get more enjoyment from the game.
+    * ID Number: 7
+    * Story Points: 32
+  * As a user I want to be able to role dice to progress along the board.
+    * ID Number: 8
+    * Story Points: 5
+  * As a user I want to be able to win the game by bankrupting the other players. 
+    * ID Number: 9
+    * Story Points: 7
+  As a user I want to be able to play against at least one other human player.
+    * ID Number: 10
+    * Story Points: 42
+
+## Non-Functional Requirements
+  * As a user I want to see my high scores or the number of wins so I can see how well I have done in the past.
+    * ID Number: 11
+    * Story Points: 14
+  *  As a user I want to see aesthetically pleasing graphics when I play the game so that I play it more.
+    * ID Number: 12
+    * Story Points: 27
+  * As a user I want to be able to choose different game pieces so that I can customize the experience.
+    * ID Number: 13
+    * Story Points: 13
+  * As a user I want to be able to change the difficulty of the AI in order to tailor the game to my skill level.
+    * ID Number: 14
+    * Story Points: 50
+  * As a user I want to be able to play agianst up to 3 other players.
+    * ID Number: 15
+    * Story Points: 39
 
 ## Methodology: 
-(Which methodology you plan to follow, though it may change: Waterfall, iterfall, Agile, mash-up of …)
+Agile Process
 
 ## Project Tracking software:
- Name of the software you will use
- (Trello)
- Link to project tracking software: make sure instructor and TAs have access
- Be sure to continue to use this throughout the semester! Even though these are small projects, the point is to practice the  methodologies and tools used in industry!
+[Trello Link Here](https://trello.com/b/IyxuIwpX/meme-monopoly)
 
 ## Project plan: 
 created from your Project Tracking software. Copy-paste the plan (or screenshot of) from your project tracking software into the repository.
