@@ -13,8 +13,7 @@
 An open source Monopoly clone, with the ability to import your customizable it.
 
 ## Vision Statement:
-To allow anyone to play their own customized monopoly.
-
+so fun you'll forget it's Monopoly
 ## Motivation: 
 To make players smile while combining our love of modularity and board game.
 
