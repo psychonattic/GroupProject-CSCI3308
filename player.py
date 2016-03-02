@@ -1,5 +1,5 @@
 class Player:
-	def __init__(self,money,properties,icon): #should be form (int,list of properties, name of image file)
+	def __init__(self,money,properties,icon): #should be form (self, int, list of properties, name of image file)
 		self.money = money
 		self.properties = properties
 		self.icon = icon
