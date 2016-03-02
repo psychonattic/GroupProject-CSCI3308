@@ -7,16 +7,16 @@
  * Joel Barkley: Psychonattic
  * Nathan Carmine: ncarmine
 
-## Meme Monopoly
+## Mod Monopoly
 
 ## Description:
-An open source Monopoly clone, utilizing popular memes for the users’ entertainment.
+An open source Monopoly clone, with the ability to import your customizable it.
 
 ## Vision Statement:
-To perpetuate meme culture through the timeless game of monopoly.
+To allow anyone to play their own customized monopoly.
 
 ## Motivation: 
-To make players smile while combining our love of memes and board game.
+To make players smile while combining our love of modularity and board game.
 
 ## Risks: 
  * Limited experience with pygames framework
