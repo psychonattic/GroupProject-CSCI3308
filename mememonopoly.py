@@ -76,7 +76,7 @@ def run(): #main game loop - currently just has a quit button
 			if event.type == MOUSEBUTTONUP: #checks for mouse click
 				mousex, mousey = event.pos #saves x,y values of mouse click
 				if beginGameRect.collidepoint((mousex, mousey)): #checks if mouse click is in quit button
-					return False #quits the run loop
+					main() #quits the run loop
 
 	
 		
