@@ -1,30 +1,25 @@
 import random, sys, pygame, time, copy
 from pygame.locals import *
 from player import Player
+from gameboard import *
 
-Framepersecond = 20 #frames per second
-boardsize = 700 #height and width of the board
-cornersize = 2*(boardsize/11) #height and width of corner board pieces
-edgewidth = (boardsize/11) #width of non-corner board pieces
-edgeheight = 2*(boardsize/11) #height of non-corner board pieces
-BLACK      = (  0,   0,   0) 
-WHITE      = (255, 255, 255)
-GREEN      = (  0, 155,   0)
-TEXTCOLOR = WHITE
-BGCOLOR = BLACK
+# Framepersecond = 20 #frames per second
+# boardsize = 700 #height and width of the board
+# cornersize = 2*(boardsize/11) #height and width of corner board pieces
+# edgewidth = (boardsize/11) #width of non-corner board pieces
+# edgeheight = 2*(boardsize/11) #height of non-corner board pieces
+# BLACK      = (  0,   0,   0) 
+# WHITE      = (255, 255, 255)
+# GREEN      = (  0, 155,   0)
+# TEXTCOLOR = WHITE
+# BGCOLOR = BLACK
 
 #player1 = Player(0,0,0)
 #print player1.money
 
 
 def main():
-	global DISPLAY, GAMEFONT, fpsClock
-	pygame.init() #initializes the board
-	fpsClock = pygame.time.Clock() #keeps track of how fast the screen is updating
-	GAMEFONT = pygame.font.Font('freesansbold.ttf', 32)
-	DISPLAY = pygame.display.set_mode((boardsize, boardsize))
-	DISPLAY.fill(BLACK)
-	pygame.display.set_caption('Mod Monopoly') 
+	#board = new GameBoard()
 	#boardImage = pygame.image.load('monopoly.png')
 	#boardgamebg = pygame.image.load('monopoly.png')
 	startScreen()
@@ -35,6 +30,13 @@ def main():
 
 
 def startScreen():
+	global DISPLAY, GAMEFONT, fpsClock
+	pygame.init() #initializes the board
+	fpsClock = pygame.time.Clock() #keeps track of how fast the screen is updating
+	GAMEFONT = pygame.font.Font('freesansbold.ttf', 32)
+	DISPLAY = pygame.display.set_mode((boardsize, boardsize))
+	DISPLAY.fill(BLACK)
+	pygame.display.set_caption('Mod Monopoly') 
 	STARTFONT = pygame.font.Font('freesansbold.ttf', 25)  #font for start screen
 	newGameStart = STARTFONT.render('Start', True, TEXTCOLOR, BGCOLOR) #renders start button
 	newGameRect = newGameStart.get_rect() #gets the rect value of start button
@@ -65,18 +67,7 @@ def startScreen():
 
 			
 
-def run(): #main game loop - currently just has a quit button
-	beginSurf = GAMEFONT.render('Quit', True, TEXTCOLOR, BGCOLOR) #renderes quit button
-	beginGameRect = beginSurf.get_rect() #gets rect value of quit button
-	beginGameRect.center = (int(boardsize / 2), boardsize-(beginGameRect.height)) #centers quit button
-	DISPLAY.blit(beginSurf,beginGameRect) #displays quit button
-	pygame.display.update() #updates the screen
-	fpsClock.tick(Framepersecond)
-	for event in pygame.event.get():
-			if event.type == MOUSEBUTTONUP: #checks for mouse click
-				mousex, mousey = event.pos #saves x,y values of mouse click
-				if beginGameRect.collidepoint((mousex, mousey)): #checks if mouse click is in quit button
-					main() #quits the run loop
+
 
 	
 		
