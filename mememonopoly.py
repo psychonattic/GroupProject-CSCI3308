@@ -6,7 +6,7 @@ from gameboard import *
 
 
 def main():
-	board = GameBoard(700,20) #boardsize, fps
+	board = GameBoard(715,20) #boardsize, fps
 	board.startScreen()
 	while True:
 		if board.run() == False:
