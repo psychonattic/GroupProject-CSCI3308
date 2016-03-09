@@ -13,13 +13,6 @@ class GameBoard:
 		self.edgewidth = (boardsize/11) #width of non-corner board pieces
 		self.edgeheight = 2*(boardsize/11) #height of non-corner board pieces
 		
-
-	#Framepersecond = 20 #frames per second
-	#boardsize = 700 #height and width of the board
-
-	#cornersize = 2*(self.boardsize/11) #height and width of corner board pieces
-	#edgewidth = (boardsize/11) #width of non-corner board pieces
-	#edgeheight = 2*(boardsize/11) #height of non-corner board pieces
 	
 
 	global BLACK, WHITE, GREEN, TEXTCOLOR, BGCOLOR
@@ -29,11 +22,13 @@ class GameBoard:
 	TEXTCOLOR = WHITE
 	BGCOLOR = BLACK
 
+
 	def run(self): #main game loop - currently just has a quit button
 		beginSurf = self.GAMEFONT.render('Quit', True, TEXTCOLOR, BGCOLOR) #renderes quit button
 		beginGameRect = beginSurf.get_rect() #gets rect value of quit button
 		beginGameRect.center = (int(self.boardsize / 2), self.boardsize-(beginGameRect.height)) #centers quit button
 		self.DISPLAY.blit(beginSurf,beginGameRect) #displays quit button
+		self.drawBoard()
 		pygame.display.update() #updates the screen
 		self.fpsClock.tick(self.Framepersecond)
 		for event in pygame.event.get():
@@ -44,11 +39,6 @@ class GameBoard:
 
 
 	def startScreen(self):
-		
-		 #initializes the board
-		#fpsClock =  #keeps track of how fast the screen is updating
-		#GAMEFONT = pygame.font.Font('freesansbold.ttf', 32)
-		#DISPLAY = pygame.display.set_mode((boardsize, boardsize))
 		self.DISPLAY.fill(BLACK)
 		pygame.display.set_caption('Mod Monopoly') 
 		STARTFONT = pygame.font.Font('freesansbold.ttf', 25)  #font for start screen
@@ -79,5 +69,6 @@ class GameBoard:
 						print "exit"
 						sys.exit() #exits the game
 
-	def drawBoard():
+	def drawBoard(self):
+		pygame.draw.rect(self.DISPLAY,GREEN,(0,0,self.cornersize,self.cornersize),5)
 		return 0
