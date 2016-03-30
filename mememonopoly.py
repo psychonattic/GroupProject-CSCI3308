@@ -6,7 +6,7 @@ from gameboard import *
 
 
 def main():
-	board = GameBoard(715,20) #boardsize, fps
+	board = GameBoard(636,20) #boardsize, fps   #611 seems to fit corners from basic boardsize
 	board.startScreen()
 	while True:
 		if board.run() == False:

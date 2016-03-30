@@ -14,12 +14,12 @@ GREEN      = (  0, 155,   0)
 TEXTCOLOR = WHITE
 BGCOLOR = BLACK
 
-dice1 = pygame.image.load('1.png')
-dice2 = pygame.image.load('2.png')
-dice3 = pygame.image.load('3.png')
-dice4 = pygame.image.load('4.png')
-dice5 = pygame.image.load('5.png')
-dice6 = pygame.image.load('6.png')
+dice1 = pygame.image.load("Game Images/1.png"))
+dice2 = pygame.image.load('Game Images/2.png')
+dice3 = pygame.image.load('Game Images/3.png')
+dice4 = pygame.image.load('Game Images/4.png')
+dice5 = pygame.image.load('Game Images/5.png')
+dice6 = pygame.image.load('Game Images/6.png')
 
 #player1 = Player(0,0,0)
 #print player1.money

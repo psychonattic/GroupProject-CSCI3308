@@ -9,16 +9,21 @@ class GameBoard:
 		self.DISPLAY = pygame.display.set_mode((boardsize, boardsize))
 		self.GAMEFONT = pygame.font.Font('freesansbold.ttf', 32)
 		self.fpsClock = pygame.time.Clock()
-		self.cornersize = 2*(boardsize/13) #height and width of corner board pieces
-		self.edgewidth = (boardsize/13) #width of non-corner board pieces
-		self.edgeheight = 2*(boardsize/13) #height of non-corner board pieces
-		
-	
+		self.cornersize = 1.5*(boardsize/12) #height and width of corner board pieces
+		self.edgewidth = (boardsize/12) #width of non-corner board pieces
+		self.edgeheight = 1.5*(boardsize/12) #height of non-corner board pieces
+		self.board =pygame.image.load("Game Images/basicboard.jpg")
+		self.corner_top_left = pygame.image.load("Game Images/corner_top_left.jpg")
+		self.corner_top_right = pygame.image.load("Game Images/corner_top_right.jpg")
+		self.corner_bottom_left = pygame.image.load("Game Images/corner_bottom_left.jpg")
+		self.corner_bottom_right = pygame.image.load("Game Images/corner_bottom_right.jpg")	
+		self.top = pygame.image.load("Game Images/top.jpg")	
 
-	global BLACK, WHITE, GREEN, TEXTCOLOR, BGCOLOR
+	global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR
 	BLACK = (  0,   0,   0) 
 	WHITE = (255, 255, 255)
 	GREEN = (  0, 155,   0)
+	RED =   (255,   0,   0)
 	TEXTCOLOR = WHITE
 	BGCOLOR = BLACK
 
@@ -27,8 +32,8 @@ class GameBoard:
 		beginSurf = self.GAMEFONT.render('Quit', True, TEXTCOLOR, BGCOLOR) #renderes quit button
 		beginGameRect = beginSurf.get_rect() #gets rect value of quit button
 		beginGameRect.center = (int(self.boardsize / 2), self.boardsize/2) #centers quit button
-		self.DISPLAY.blit(beginSurf,beginGameRect) #displays quit button
 		self.drawBoard()
+		self.DISPLAY.blit(beginSurf,beginGameRect) #displays quit button		self.drawBoard()
 		pygame.display.update() #updates the screen
 		self.fpsClock.tick(self.Framepersecond)
 		for event in pygame.event.get():
@@ -70,26 +75,31 @@ class GameBoard:
 						sys.exit() #exits the game
 
 	def drawBoard(self):
-		red = (255,0,0)
-		endpoint = self.boardsize-self.cornersize
-		pygame.draw.rect(self.DISPLAY,GREEN,(0,endpoint,self.cornersize,self.cornersize),1)
-		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,0,self.cornersize,self.cornersize),1)
-		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,endpoint,self.cornersize,self.cornersize),1)
-		pygame.draw.rect(self.DISPLAY,GREEN,(0,0,self.cornersize,self.cornersize),1)
+		endpoint = self.boardsize-self.cornersize #marks where to stop loop
+	#	self.DISPLAY.blit(self.board,(0,0)) 
+		pygame.draw.rect(self.DISPLAY,GREEN,(0,endpoint,self.cornersize,self.cornersize),1) #draws bottom left corner
+	#	self.DISPLAY.blit(self.corner_bottom_left,(0,endpoint))
+		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,0,self.cornersize,self.cornersize),1) #draws top right corner
+	#	self.DISPLAY.blit(self.corner_top_right,(endpoint,0))
+		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,endpoint,self.cornersize,self.cornersize),1) #draws bottom right corner
+	#	self.DISPLAY.blit(self.corner_bottom_right,(endpoint,endpoint))
+		pygame.draw.rect(self.DISPLAY,GREEN,(0,0,self.cornersize,self.cornersize),1) #draws top left corner
+	#	self.DISPLAY.blit(self.corner_top_left,(0,0))
+		self.DISPLAY.blit(self.top,(self.cornersize,0))
 		x = self.cornersize
 		while x<(endpoint):
-			pygame.draw.rect(self.DISPLAY,red,(x,0,self.edgewidth,self.edgeheight),1)
+			pygame.draw.rect(self.DISPLAY,RED,(x,0,self.edgewidth,self.edgeheight),1) #draw rects between corners top
 			x+=self.edgewidth
 		xbottom = self.cornersize
 		while xbottom < endpoint :
-			pygame.draw.rect(self.DISPLAY,red,(xbottom,endpoint,self.edgewidth,self.edgeheight),1)
+			pygame.draw.rect(self.DISPLAY,RED,(xbottom,endpoint,self.edgewidth,self.edgeheight),1) #draw rects between corners bottom
 			xbottom+= self.edgewidth
 		y = self.cornersize
 		while y <(endpoint):
-			pygame.draw.rect(self.DISPLAY,red,(0,y,self.edgeheight,self.edgewidth),1)
+			pygame.draw.rect(self.DISPLAY,RED,(0,y,self.edgeheight,self.edgewidth),1) #draw rects between corners left
 			y += self.edgewidth
 		yright = self.cornersize
 		while yright < endpoint :
-			pygame.draw.rect(self.DISPLAY,red,(endpoint,yright,self.edgeheight,self.edgewidth),1)
+			pygame.draw.rect(self.DISPLAY,RED,(endpoint,yright,self.edgeheight,self.edgewidth),1) #draw rects between corners right
 			yright += self.edgewidth
 		return 0
