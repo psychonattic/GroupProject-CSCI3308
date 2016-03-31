@@ -1,10 +1,16 @@
 class Properties:
-	def __init__(self,name,hotels,condos,buyprice,stayprice): #should be form (self, string, int, int, int, int)
+	def __init__(self,name,picture,houses,hotels,buyprice,rent,mortgage,housecost,groupname,ownable,isOwned): #should be form (self, string, int, int, int, int)
 		self.name = name
+		self.picture = picture
+		self.houses = houses
 		self.hotels = hotels
-		self.condos = condos
 		self.buyprice = buyprice
-		self.stayprice = stayprice
+		self.rent = rent
+		self.mortgage = mortgage
+		self.housecost = housecost
+		self.groupname = groupname
+		self.ownable = ownable
+		self.isOwned = isOwned
 
 	def addHotel(): #method for when you get money 
 		self.hotel += 1
