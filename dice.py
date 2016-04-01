@@ -31,7 +31,7 @@ def return_button(msg, x, y, w, h, ic, ac): #return button, takes a string, top 
     if x + w > mouse[0] > x and y + h > mouse[1] > y: #if mouse is in the bounds of button
         pygame.draw.rect(DISPLAY, ac, (x, y, w, h)) #light up box (indicate interactivity)
         if click[0] == 1: #if click mouse 1
-            main() #back to roll screen
+            sys.exit() #back to roll screen
     else:
         pygame.draw.rect(DISPLAY, ic, (x, y, w, h)) #if mouse not hovering just display (darker) box
     #box and text within box    
@@ -82,6 +82,7 @@ def dice_button(msg, x, y, w, h, ic, ac): #roll button, takes a string, top left
     textSurf, textRect = text_objects(msg, smallText, BLACK)
     textRect.center = ((x + (w/2)), (y + (h/2)))
     DISPLAY.blit(textSurf, textRect)
+    return False
 
 
 def dice_roll():
@@ -150,4 +151,4 @@ def main():
         pygame.display.update()
         fpsClock.tick(Framepersecond) #limits how fast the screen can updat by framepersecond
     
-main()
+#main()

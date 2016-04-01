@@ -4,6 +4,8 @@ from player import Player
 from gameboard import *
 
 
+myplayer = Player(1,1,1)
+print myplayer.money
 
 def main():
 	board = GameBoard(600,20) #boardsize, fps 

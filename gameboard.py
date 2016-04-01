@@ -1,5 +1,6 @@
 import random, sys, pygame, time, copy
 from pygame.locals import *
+from dice import *
 class GameBoard:
 
 
@@ -161,10 +162,10 @@ class GameBoard:
 		ctl = pygame.transform.scale(ctl,(yimage,yimage))
 		self.DISPLAY.blit(ctl,(0,0))
 
-		pygame.draw.rect(self.DISPLAY,GREEN,(0,endpoint,self.cornersize,self.cornersize),2)#bottom left
-		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,0,self.cornersize,self.cornersize),2) #top left
-		pygame.draw.rect(self.DISPLAY,GREEN,(endpoint,endpoint,self.cornersize,self.cornersize),2)#bottom right
-		pygame.draw.rect(self.DISPLAY,GREEN,(0,0,self.cornersize,self.cornersize),2) #top right
+		pygame.draw.rect(self.DISPLAY,BLACK,(0,endpoint,self.cornersize,self.cornersize),2)#bottom left
+		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,0,self.cornersize,self.cornersize),2) #top left
+		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,endpoint,self.cornersize,self.cornersize),2)#bottom right
+		pygame.draw.rect(self.DISPLAY,BLACK,(0,0,self.cornersize,self.cornersize),2) #top right
 		x = long(self.cornersize)
 		count=1
 		while x<(endpoint) and count<10: #loads the frames and pictures for the top row
@@ -173,7 +174,7 @@ class GameBoard:
 			image = pygame.image.load(str1).convert()
 			image = pygame.transform.scale(image, (ximage,yimage)) #scales the image
 			self.DISPLAY.blit(image,(x,0)) #displays the image
-			pygame.draw.rect(self.DISPLAY,RED,(x,0,self.edgewidth,self.edgeheight),2)
+			pygame.draw.rect(self.DISPLAY,BLACK,(x,0,self.edgewidth,self.edgeheight),2)
 			x+=self.edgewidth
 			count+=1
 		xbottom = long(self.cornersize)
@@ -184,7 +185,7 @@ class GameBoard:
 			image1 = pygame.image.load(str2).convert()
 			image1 = pygame.transform.scale(image1, (ximage,yimage)) #scales the image
 			self.DISPLAY.blit(image1,(xbottom,endpoint)) #displays the image
-			pygame.draw.rect(self.DISPLAY,RED,(xbottom,endpoint,self.edgewidth,self.edgeheight),2)
+			pygame.draw.rect(self.DISPLAY,BLACK,(xbottom,endpoint,self.edgewidth,self.edgeheight),2)
 			xbottom+= self.edgewidth
 			count+=1
 		y = long(self.cornersize)
@@ -195,7 +196,7 @@ class GameBoard:
 			image2 = pygame.image.load(str3).convert()
 			image2 = pygame.transform.scale(image2, (yimage,ximage)) #scales the image
 			self.DISPLAY.blit(image2,(0,y)) #displays the image
-			pygame.draw.rect(self.DISPLAY,RED,(0,y,self.edgeheight,self.edgewidth),2)
+			pygame.draw.rect(self.DISPLAY,BLACK,(0,y,self.edgeheight,self.edgewidth),2)
 			y += self.edgewidth
 			count+=1
 		yright = long(self.cornersize)
@@ -206,7 +207,7 @@ class GameBoard:
 			image3 = pygame.image.load(str4).convert()
 			image3 = pygame.transform.scale(image3, (yimage,ximage)) #scales the image
 			self.DISPLAY.blit(image3,(endpoint,yright)) #displays the image
-			pygame.draw.rect(self.DISPLAY,RED,(endpoint,yright,self.edgeheight,self.edgewidth),2)
+			pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,yright,self.edgeheight,self.edgewidth),2)
 			yright += self.edgewidth
 			count+=1
 		return 0
