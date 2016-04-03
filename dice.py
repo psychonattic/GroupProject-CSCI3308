@@ -151,4 +151,4 @@ def main():
         pygame.display.update()
         fpsClock.tick(Framepersecond) #limits how fast the screen can updat by framepersecond
     
-#main()
+main()
