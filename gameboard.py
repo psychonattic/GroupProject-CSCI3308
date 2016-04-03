@@ -1,12 +1,14 @@
 import random, sys, pygame, time, copy
 from pygame.locals import *
+from Space import *
 class GameBoard:
 
 
-	def __init__(self, boardsize,Framepersecond):
+	def __init__(self, boardsize,Framepersecond,spaces):
 		pygame.init()
 		self.boardsize = boardsize
 		self.Framepersecond = Framepersecond
+		self.spaces = spaces
 		self.DISPLAY = pygame.display.set_mode((boardsize, boardsize),RESIZABLE)
 		self.GAMEFONT = pygame.font.Font('freesansbold.ttf', 20)
 		self.fpsClock = pygame.time.Clock()
@@ -16,16 +18,18 @@ class GameBoard:
 		
 	
 
-	global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR
+	global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR, thisspace
 	BLACK = (  0,   0,   0) 
 	WHITE = (255, 255, 255)
 	GREEN = (  0, 155,   0)
 	RED = (255,0,0)
 	TEXTCOLOR = WHITE
 	BGCOLOR = BLACK
+	thisspace = GoSpace("go","./images/go","gospace")
 
 
 	def run(self): #main game loop - currently just has a quit button
+		#self.DISPLAY = pygame.display.set_mode((self.boardsize, self.boardsize),RESIZABLE)
 		pygame.display.set_caption('Mod-opoly')
 		beginSurf = self.GAMEFONT.render('Options', True, TEXTCOLOR, BGCOLOR) #renderes options button
 		optionRect = beginSurf.get_rect() #gets rect value of options button
@@ -35,11 +39,15 @@ class GameBoard:
 		pygame.display.update() #updates the screen
 		self.fpsClock.tick(self.Framepersecond)
 		for event in pygame.event.get():
-			if event.type == MOUSEBUTTONUP: #checks for mouse click
+			if event.type == MOUSEBUTTONDOWN: #checks for mouse click
 				mousex, mousey = event.pos #saves x,y values of mouse click
 				if optionRect.collidepoint((mousex, mousey)): #checks if mouse click is in options button
 					self.optionScreen() #quits the run loop
 				print self.getProperty(mousex,mousey)
+				if(self.getProperty(mousex,mousey) != -1):
+					self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
+					self.run()
+				
 			if (event.type == VIDEORESIZE): #ALL OF THIS DEALS WITH RESIZING ISSUES
 				self.DISPLAY = pygame.display.set_mode((event.w,event.w),RESIZABLE)
 				self.boardsize = event.w
@@ -48,6 +56,7 @@ class GameBoard:
 				self.edgeheight = 1.5*(self.boardsize/12.0) #height of non-corner board pieces
 				fsize = int(self.boardsize*.04)
 				self.GAMEFONT = pygame.font.Font('freesansbold.ttf', fsize)
+				self.run()
 			if(event.type == QUIT):
 				sys.exit()
 
@@ -157,14 +166,14 @@ class GameBoard:
 		ctr = pygame.transform.scale(ctr,(yimage,yimage))
 		self.DISPLAY.blit(ctr,(endpoint,0))
 
-		ctl = pygame.image.load("./images/corner_top_left.jpg").convert() #corner top left
+		ctl = pygame.image.load("./images/corner_top_left.jpg").convert() #corner bottom left
 		ctl = pygame.transform.scale(ctl,(yimage,yimage))
 		self.DISPLAY.blit(ctl,(0,0))
 
-		pygame.draw.rect(self.DISPLAY,BLACK,(0,endpoint,self.cornersize,self.cornersize),1)#bottom left
-		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,0,self.cornersize,self.cornersize),1) #top left
-		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,endpoint,self.cornersize,self.cornersize),1)#bottom right
-		pygame.draw.rect(self.DISPLAY,BLACK,(0,0,self.cornersize,self.cornersize),1) #top right
+		pygame.draw.rect(self.DISPLAY,BLACK,(0,endpoint,self.cornersize,self.cornersize),2)#bottom left
+		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,0,self.cornersize,self.cornersize),2) #top left
+		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,endpoint,self.cornersize,self.cornersize),2)#bottom right
+		pygame.draw.rect(self.DISPLAY,BLACK,(0,0,self.cornersize,self.cornersize),2) #top right
 		x = long(self.cornersize)
 		count=1
 		while x<(endpoint) and count<10: #loads the frames and pictures for the top row
@@ -173,7 +182,7 @@ class GameBoard:
 			image = pygame.image.load(str1).convert()
 			image = pygame.transform.scale(image, (ximage,yimage)) #scales the image
 			self.DISPLAY.blit(image,(x,0)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(x,0,self.edgewidth,self.edgeheight),1)
+			pygame.draw.rect(self.DISPLAY,BLACK,(x,0,self.edgewidth,self.edgeheight),2)
 			x+=self.edgewidth
 			count+=1
 		xbottom = long(self.cornersize)
@@ -184,7 +193,7 @@ class GameBoard:
 			image1 = pygame.image.load(str2).convert()
 			image1 = pygame.transform.scale(image1, (ximage,yimage)) #scales the image
 			self.DISPLAY.blit(image1,(xbottom,endpoint)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(xbottom,endpoint,self.edgewidth,self.edgeheight),1)
+			pygame.draw.rect(self.DISPLAY,BLACK,(xbottom,endpoint,self.edgewidth,self.edgeheight),2)
 			xbottom+= self.edgewidth
 			count+=1
 		y = long(self.cornersize)
@@ -195,7 +204,7 @@ class GameBoard:
 			image2 = pygame.image.load(str3).convert()
 			image2 = pygame.transform.scale(image2, (yimage,ximage)) #scales the image
 			self.DISPLAY.blit(image2,(0,y)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(0,y,self.edgeheight,self.edgewidth),1)
+			pygame.draw.rect(self.DISPLAY,BLACK,(0,y,self.edgeheight,self.edgewidth),2)
 			y += self.edgewidth
 			count+=1
 		yright = long(self.cornersize)
@@ -206,7 +215,7 @@ class GameBoard:
 			image3 = pygame.image.load(str4).convert()
 			image3 = pygame.transform.scale(image3, (yimage,ximage)) #scales the image
 			self.DISPLAY.blit(image3,(endpoint,yright)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,yright,self.edgeheight,self.edgewidth),1)
+			pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,yright,self.edgeheight,self.edgewidth),2)
 			yright += self.edgewidth
 			count+=1
 		return 0
@@ -215,7 +224,7 @@ class GameBoard:
 
 	def getProperty(self,mousex,mousey):  #Given a mouse position on the board, this will return the number of the property or -1 if not clicking on any property
 
-		if(mousex<self.boardsize and mousex>self.boardsize-self.cornersize and mousey<self.boardsize and mousey>self.boardsize-self.cornersize):  #bottom 1
+		if(mousex<self.boardsize-(.3*self.cornersize) and mousex>self.boardsize-self.cornersize and mousey<self.boardsize-(.3*self.cornersize) and mousey>self.boardsize-self.cornersize):  #bottom 1
 			return 0
 		if(mousex<self.boardsize-self.cornersize and mousex>self.boardsize-self.cornersize-self.edgewidth and mousey<self.boardsize and mousey>self.boardsize-self.cornersize): #bottom 2
 			return 1
