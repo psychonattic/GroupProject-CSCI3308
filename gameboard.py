@@ -3,7 +3,6 @@ from pygame.locals import *
 from Space import *
 class GameBoard:
 
-
 	def __init__(self, boardsize,Framepersecond,spaces):
 		pygame.init()
 		self.boardsize = boardsize
@@ -16,16 +15,14 @@ class GameBoard:
 		self.edgewidth = 1.0*(boardsize/12.0) #width of non-corner board pieces
 		self.edgeheight = 1.5*(boardsize/12.0) #height of non-corner board pieces
 		
-	
 
-	global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR, thisspace
+	global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR
 	BLACK = (  0,   0,   0) 
 	WHITE = (255, 255, 255)
 	GREEN = (  0, 155,   0)
 	RED = (255,0,0)
 	TEXTCOLOR = WHITE
 	BGCOLOR = BLACK
-	thisspace = GoSpace("Go","./images/board/go","gospace")
 
 
 	def run(self): #main game loop - currently just has a quit button
@@ -111,10 +108,10 @@ class GameBoard:
 			STARTFONT = pygame.font.Font('freesansbold.ttf', fontsize)  #font for start screen
 			newGameStart = STARTFONT.render('Start', True, TEXTCOLOR, BGCOLOR) #renders start button
 			newGameRect = newGameStart.get_rect() #gets the rect value of start button
-			newGameRect.center = (int(self.boardsize / 4), (self.boardsize-(newGameRect.height))) #places start button on botton of the screen
+			newGameRect.center = (int(3*(self.boardsize / 4)), (self.boardsize-(newGameRect.height))) #places start button on botton of the screen
 			newGameExit = STARTFONT.render('Exit', True, TEXTCOLOR, BGCOLOR) #renders exit button
 			newGameExitRect = newGameExit.get_rect() #gets the exit button rect value
-			newGameExitRect.center = (int(3*(self.boardsize / 4)), (self.boardsize-(newGameRect.height))) #puts exit button on bottom of the screen
+			newGameExitRect.center = (int(self.boardsize / 4), (self.boardsize-(newGameRect.height))) #puts exit button on bottom of the screen
 			text1 = "Welcome to Mod-opoly!" #welcome message
 			text2 = "Click 'Start' to continue or 'Exit' to quit" #instructions message
 			screen_text1 = STARTFONT.render(text1, True, WHITE) #renders welcome message
@@ -128,7 +125,7 @@ class GameBoard:
 				if event.type == MOUSEBUTTONUP:  #checks for mouse click
 					mousex, mousey = event.pos #gets coordinates of mouse click
 					if newGameRect.collidepoint((mousex, mousey)): #checks if mouse click is in start button
-						print "collided"
+						print "start"
 						self.DISPLAY.fill(BLACK) #resets the screen
 						return False #exits start screen
 					elif newGameExitRect.collidepoint((mousex,mousey)): #checks if mouse click is in exit button
@@ -143,83 +140,52 @@ class GameBoard:
 				if(event.type == QUIT):
 					sys.exit()
 					
-	
-	
 
-
-
-	def drawBoard(self): #DRAWS THE BORD EVERY TURN	
+	def drawBoard(self): #DRAWS THE BOARD EVERY TURN	
 		ximage = int(self.edgewidth)
 		yimage = int(self.edgeheight)
 		endpoint = long(self.boardsize-self.cornersize)
+                blitdest = [(endpoint,endpoint),(0,endpoint),(0,0),(endpoint,0)] #Array for blit destinations
+                
+                #Displays each corner piece
+                for i in range(0,4):
+                    corner = pygame.image.load(self.spaces[i*10].picture).convert() #Convert image to new pixel format
+                    corner = pygame.transform.scale(corner,(yimage,yimage)) #Scale image
+                    self.DISPLAY.blit(corner,blitdest[i]) #Display corner piece at blit destination
+                    pygame.draw.rect(self.DISPLAY,BLACK,(blitdest[i][0],blitdest[i][1],self.cornersize,self.cornersize),2)
+                
+                #Displays each non-corner piece
+                spacepos = long(endpoint-self.edgewidth) #start to the left of "Go" for bottom row
+                for i in range(1,10)+range(11,20)+range(21,30)+range(31,40): #Skip edges
+                    if i == 11:
+                        #Start above Jail for left column
+                        spacepos = long(endpoint-self.edgewidth)
+                    elif i == 21 or i == 31:
+                        #Start at the top corners for the other two sides
+                        spacepos = long(self.cornersize)
 
-		
-		cbl = pygame.image.load("./images/board/corner_bottom_left.jpg").convert() #corner bottom left
-		cbl = pygame.transform.scale(cbl,(yimage,yimage))
-		self.DISPLAY.blit(cbl,(0,endpoint))
-
-		cbr = pygame.image.load("./images/board/corner_bottom_right.jpg").convert() #corner bottom right
-		cbr = pygame.transform.scale(cbr,(yimage,yimage))
-		self.DISPLAY.blit(cbr,(endpoint,endpoint))
-
-		ctr = pygame.image.load("./images/board/corner_top_right.jpg").convert() #corner top right
-		ctr = pygame.transform.scale(ctr,(yimage,yimage))
-		self.DISPLAY.blit(ctr,(endpoint,0))
-
-		ctl = pygame.image.load("./images/board/corner_top_left.jpg").convert() #corner bottom left
-		ctl = pygame.transform.scale(ctl,(yimage,yimage))
-		self.DISPLAY.blit(ctl,(0,0))
-
-		pygame.draw.rect(self.DISPLAY,BLACK,(0,endpoint,self.cornersize,self.cornersize),2)#bottom left
-		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,0,self.cornersize,self.cornersize),2) #top left
-		pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,endpoint,self.cornersize,self.cornersize),2)#bottom right
-		pygame.draw.rect(self.DISPLAY,BLACK,(0,0,self.cornersize,self.cornersize),2) #top right
-		x = long(self.cornersize)
-		count=1
-		while x<(endpoint) and count<10: #loads the frames and pictures for the top row
-			str1 = "./images/board/top"
-			str1 = str1 + str(count) + ".jpg" #creates the right adress for the picture
-			image = pygame.image.load(str1).convert()
-			image = pygame.transform.scale(image, (ximage,yimage)) #scales the image
-			self.DISPLAY.blit(image,(x,0)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(x,0,self.edgewidth,self.edgeheight),2)
-			x+=self.edgewidth
-			count+=1
-		xbottom = long(self.cornersize)
-		count=1
-		while xbottom < endpoint and count<10: #loads the frames and pictures for the bottom row
-			str2 = "./images/board/bottom"
-			str2 = str2 + str(count) + ".jpg" #creates the right adress for the picture
-			image1 = pygame.image.load(str2).convert()
-			image1 = pygame.transform.scale(image1, (ximage,yimage)) #scales the image
-			self.DISPLAY.blit(image1,(xbottom,endpoint)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(xbottom,endpoint,self.edgewidth,self.edgeheight),2)
-			xbottom+= self.edgewidth
-			count+=1
-		y = long(self.cornersize)
-		count=1
-		while y <(endpoint) and count<10: #loads the frames and pictures for the left row
-			str3 = "./images/board/left"
-			str3 = str3 + str(count) + ".jpg" #creates the right adress for the picture
-			image2 = pygame.image.load(str3).convert()
-			image2 = pygame.transform.scale(image2, (yimage,ximage)) #scales the image
-			self.DISPLAY.blit(image2,(0,y)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(0,y,self.edgeheight,self.edgewidth),2)
-			y += self.edgewidth
-			count+=1
-		yright = long(self.cornersize)
-		count=1
-		while yright < endpoint and count<10: #loads the frames and pictures for the right row
-			str4 = "./images/board/right"
-			str4 = str4 + str(count) + ".jpg" #creates the right adress for the picture
-			image3 = pygame.image.load(str4).convert()
-			image3 = pygame.transform.scale(image3, (yimage,ximage)) #scales the image
-			self.DISPLAY.blit(image3,(endpoint,yright)) #displays the image
-			pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,yright,self.edgeheight,self.edgewidth),2)
-			yright += self.edgewidth
-			count+=1
-		return 0
-
+                    image = pygame.image.load(self.spaces[i].picture).convert()
+                    if i > 0 and i < 10:
+                        image = pygame.transform.scale(image, (ximage, yimage)) #Scale by x, y for rows
+                        self.DISPLAY.blit(image,(spacepos,endpoint))
+                        pygame.draw.rect(self.DISPLAY,BLACK,(spacepos,endpoint,self.edgewidth,self.edgeheight),2)
+                        spacepos -= self.edgewidth #Go from right to left by subtracting
+                    elif i > 10 and i < 20:
+                        image = pygame.transform.scale(image, (yimage, ximage)) #Scale by y, x for cols
+                        self.DISPLAY.blit(image,(0,spacepos))
+                        pygame.draw.rect(self.DISPLAY,BLACK,(0,spacepos,self.edgeheight,self.edgewidth),2)
+                        spacepos -= self.edgewidth #Go from bottom to top
+                    elif i > 20 and i < 30:
+                        image = pygame.transform.scale(image, (ximage, yimage))
+                        self.DISPLAY.blit(image, (spacepos,0))
+                        pygame.draw.rect(self.DISPLAY,BLACK,(spacepos,0,self.edgewidth,self.edgeheight),2)
+                        spacepos += self.edgewidth #Go from left to right
+                    elif i > 30 and i <40:
+                        image = pygame.transform.scale(image, (yimage, ximage))
+                        self.DISPLAY.blit(image,(endpoint,spacepos))
+                        pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,spacepos,self.edgeheight,self.edgewidth),2)
+                        spacepos += self.edgewidth #Go from top to bottom
+                return 0
 
 
 	def getProperty(self,mousex,mousey):  #Given a mouse position on the board, this will return the number of the property or -1 if not clicking on any property
