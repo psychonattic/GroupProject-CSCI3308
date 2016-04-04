@@ -13,7 +13,7 @@ default_names = ["Go","Mediterranean Ave.","Community Chest","Baltic Ave.","Inco
 default_spaces = []
 
 for i in range(0, 40):
-    default_spaces.append(GoSpace(default_names[i], "./images/themes/default/space"+str(i), "gospace"))
+    default_spaces.append(GoSpace(default_names[i], "./images/themes/default/space"+str(i)+".jpg", "gospace"))
 def main(boardsize, fps, boardspaces):
     pygame.init()
     done = False
