@@ -1,6 +1,7 @@
 import random, sys, pygame, time, copy
 from pygame.locals import *
 from Space import *
+
 class GameBoard:
 
 	def __init__(self, boardsize,Framepersecond,spaces):
@@ -41,9 +42,9 @@ class GameBoard:
 				if optionRect.collidepoint((mousex, mousey)): #checks if mouse click is in options button
 					self.optionScreen() #quits the run loop
 				print self.getProperty(mousex,mousey)
-				if(self.getProperty(mousex,mousey) != -1):
+                                if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
 					self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
-					self.run()
+					#self.run()
 				
 			if (event.type == VIDEORESIZE): #ALL OF THIS DEALS WITH RESIZING ISSUES
 				self.DISPLAY = pygame.display.set_mode((event.w,event.w),RESIZABLE)
