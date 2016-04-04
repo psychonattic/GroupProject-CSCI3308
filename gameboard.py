@@ -25,7 +25,7 @@ class GameBoard:
 	RED = (255,0,0)
 	TEXTCOLOR = WHITE
 	BGCOLOR = BLACK
-	thisspace = GoSpace("go","./images/go","gospace")
+	thisspace = GoSpace("Go","./images/board/go","gospace")
 
 
 	def run(self): #main game loop - currently just has a quit button
@@ -154,19 +154,19 @@ class GameBoard:
 		endpoint = long(self.boardsize-self.cornersize)
 
 		
-		cbl = pygame.image.load("./images/corner_bottom_left.jpg").convert() #corner bottom left
+		cbl = pygame.image.load("./images/board/corner_bottom_left.jpg").convert() #corner bottom left
 		cbl = pygame.transform.scale(cbl,(yimage,yimage))
 		self.DISPLAY.blit(cbl,(0,endpoint))
 
-		cbr = pygame.image.load("./images/corner_bottom_right.jpg").convert() #corner bottom right
+		cbr = pygame.image.load("./images/board/corner_bottom_right.jpg").convert() #corner bottom right
 		cbr = pygame.transform.scale(cbr,(yimage,yimage))
 		self.DISPLAY.blit(cbr,(endpoint,endpoint))
 
-		ctr = pygame.image.load("./images/corner_top_right.jpg").convert() #corner top right
+		ctr = pygame.image.load("./images/board/corner_top_right.jpg").convert() #corner top right
 		ctr = pygame.transform.scale(ctr,(yimage,yimage))
 		self.DISPLAY.blit(ctr,(endpoint,0))
 
-		ctl = pygame.image.load("./images/corner_top_left.jpg").convert() #corner bottom left
+		ctl = pygame.image.load("./images/board/corner_top_left.jpg").convert() #corner bottom left
 		ctl = pygame.transform.scale(ctl,(yimage,yimage))
 		self.DISPLAY.blit(ctl,(0,0))
 
@@ -177,7 +177,7 @@ class GameBoard:
 		x = long(self.cornersize)
 		count=1
 		while x<(endpoint) and count<10: #loads the frames and pictures for the top row
-			str1 = "./images/top"
+			str1 = "./images/board/top"
 			str1 = str1 + str(count) + ".jpg" #creates the right adress for the picture
 			image = pygame.image.load(str1).convert()
 			image = pygame.transform.scale(image, (ximage,yimage)) #scales the image
@@ -188,7 +188,7 @@ class GameBoard:
 		xbottom = long(self.cornersize)
 		count=1
 		while xbottom < endpoint and count<10: #loads the frames and pictures for the bottom row
-			str2 = "./images/bottom"
+			str2 = "./images/board/bottom"
 			str2 = str2 + str(count) + ".jpg" #creates the right adress for the picture
 			image1 = pygame.image.load(str2).convert()
 			image1 = pygame.transform.scale(image1, (ximage,yimage)) #scales the image
@@ -199,7 +199,7 @@ class GameBoard:
 		y = long(self.cornersize)
 		count=1
 		while y <(endpoint) and count<10: #loads the frames and pictures for the left row
-			str3 = "./images/left"
+			str3 = "./images/board/left"
 			str3 = str3 + str(count) + ".jpg" #creates the right adress for the picture
 			image2 = pygame.image.load(str3).convert()
 			image2 = pygame.transform.scale(image2, (yimage,ximage)) #scales the image
@@ -210,7 +210,7 @@ class GameBoard:
 		yright = long(self.cornersize)
 		count=1
 		while yright < endpoint and count<10: #loads the frames and pictures for the right row
-			str4 = "./images/right"
+			str4 = "./images/board/right"
 			str4 = str4 + str(count) + ".jpg" #creates the right adress for the picture
 			image3 = pygame.image.load(str4).convert()
 			image3 = pygame.transform.scale(image3, (yimage,ximage)) #scales the image
