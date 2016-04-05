@@ -37,7 +37,7 @@ class GameBoard:
         optionRect = beginSurf.get_rect() #gets rect value of options button
         optionRect.bottomright = (self.boardsize-self.cornersize, self.boardsize-self.cornersize) #puts options button in corner
         
-        rollSurf = self.GAMEFONT.render('Roll', True, BLACK, GREEN) #renders roll button
+        rollSurf = pygame.font.Font(None, 40).render('Roll', True, BLACK, GREEN) #renders roll button
         rollRect = rollSurf.get_rect() #rect for option button
         rollRect.center = (int(self.boardsize / 2), 150) #centers roll button
         
@@ -76,8 +76,8 @@ class GameBoard:
 
         die1 = dice.dice_roll(d1) #gets image for d1
         die2 = dice.dice_roll2(d2) #gets image for d2
-        self.DISPLAY.blit(die1, (150, 350)) #displays d1
-        self.DISPLAY.blit(die2, (350, 350)) #displays d2
+        self.DISPLAY.blit(die1, (125, 375)) #displays d1
+        self.DISPLAY.blit(die2, (375, 375)) #displays d2
         
     def optionScreen(self):
         while True:
