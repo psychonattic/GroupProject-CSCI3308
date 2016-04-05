@@ -31,6 +31,7 @@ class GameBoard:
 
     def run(self): #main game loop - currently just has a quit button
         #self.DISPLAY = pygame.display.set_mode((self.boardsize, self.boardsize),RESIZABLE)
+        dice = Dice(self.boardsize)
         pygame.display.set_caption('Mod-opoly')
         beginSurf = self.GAMEFONT.render('Options', True, TEXTCOLOR, BGCOLOR) #renderes options button
         optionRect = beginSurf.get_rect() #gets rect value of options button
@@ -40,9 +41,10 @@ class GameBoard:
         rollRect = rollSurf.get_rect() #rect for option button
         rollRect.center = (int(self.boardsize / 2), 150) #centers roll button
         
+        
+        self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
         self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
         self.DISPLAY.blit(beginSurf,optionRect) #displays options button
-        self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
         pygame.display.update() #updates the screen
         self.fpsClock.tick(self.Framepersecond)
         for event in pygame.event.get():
@@ -296,3 +298,4 @@ class GameBoard:
         if(mousex<self.boardsize and mousex >self.boardsize-self.cornersize and mousey>self.cornersize+(8*self.edgewidth) and mousey < self.cornersize + (9*self.edgewidth)):
             return 39
         return -1
+
