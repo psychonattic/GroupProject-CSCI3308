@@ -2,6 +2,7 @@ import random, sys, pygame, time, copy
 from pygame.locals import *
 from player import Player
 from gameboard import *
+from start import *
 from sys import argv
 import itertools
 import os
@@ -76,8 +77,11 @@ def main(boardsize, fps, boardspaces):
     done = False
     clock = pygame.time.Clock()
 
+    start = Start(boardsize)
+    (pieces, numplayers) = start.startnew()
+
     board = GameBoard(boardsize, fps, boardspaces)
-    board.startScreen()
+    board.run()
 
     while board.run() != False:
         clock.tick(fps)
