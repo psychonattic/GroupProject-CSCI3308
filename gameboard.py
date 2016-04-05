@@ -1,7 +1,7 @@
-mport random, sys, pygame, time, copy
+import random, sys, pygame, time, copy
 from pygame.locals import *
 from Space import *
-from DICE import *
+from dice import *
 
 class GameBoard:
 
