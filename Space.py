@@ -20,6 +20,9 @@ class GoSpace(Space):
 		WHITE = (255, 255, 255)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
 		while True:
 			fontsize = int(boardsize*.06)
 			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
@@ -39,7 +42,6 @@ class GoSpace(Space):
 			returntextRect = returntext.get_rect()
 			returntextRect.center = (int(boardsize /2), int(2*(boardsize/3)))
 			disp.blit(returntext,returntextRect)
-
 
 			pygame.display.update()
 			for event in pygame.event.get():
@@ -69,6 +71,9 @@ class PropertySpace(Space):
 		WHITE = (255, 255, 255)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
 		if(self.owner == None):
 			self.owner = "None"
 		while True:
@@ -124,111 +129,118 @@ class PropertySpace(Space):
 					sys.exit()
 
 class RailRoadSpace(Space):
-
-        def __init__(self,name,picture,spaceType,owner,price,rent,mortgage):
-                self.name = name
-                self.picture = picture
-                self.type = spaceType
+	def __init__(self,name,picture,spaceType,owner,price,rent,mortgage):
+		self.name = name
+		self.picture = picture
+		self.type = spaceType
 		self.owner = owner
 		self.price = price
 		self.rent = rent
 		self.mortgage = mortgage
 
-        def display(self,boardsize,disp):
-                BLACK = (  0,   0,   0)
-                WHITE = (255, 255, 255)
-                TEXTCOLOR = WHITE
-                BGCOLOR = BLACK
+	def display(self,boardsize,disp):
+		BLACK = (  0,   0,   0)
+		WHITE = (255, 255, 255)
+		TEXTCOLOR = WHITE
+		BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
 		if(self.owner == None):
 			self.owner = "None"
-                while True:
-                        fontsize = int(boardsize*.06)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-                        name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
-                        nameRect = name.get_rect()
-                        nameRect.center = (int(boardsize / 2), int(2 * boardsize / 10))
-                        disp.blit(name,nameRect)
-                        fontsize = int(boardsize*.03)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-                        owner = DISPLAYFONT.render(str("Owner: " + self.owner), True, TEXTCOLOR, BGCOLOR)
-                        ownerRect = owner.get_rect()
-                        ownerRect.center = (int(boardsize / 2), int(3 * boardsize / 10))
-                        disp.blit(owner,ownerRect)
+		while True:
+			fontsize = int(boardsize*.06)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+			name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
+			nameRect = name.get_rect()
+			nameRect.center = (int(boardsize / 2), int(2 * boardsize / 10))
+			disp.blit(name,nameRect)
+			fontsize = int(boardsize*.03)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+			owner = DISPLAYFONT.render(str("Owner: " + self.owner), True, TEXTCOLOR, BGCOLOR)
+			ownerRect = owner.get_rect()
+			ownerRect.center = (int(boardsize / 2), int(3 * boardsize / 10))
+			disp.blit(owner,ownerRect)
 			price = DISPLAYFONT.render(str("Price: $" + str(self.price)), True, TEXTCOLOR, BGCOLOR)
 			priceRect = price.get_rect()
 			priceRect.center = (int(boardsize / 2), int(4 * boardsize / 10))
 			disp.blit(price, priceRect)
 			rent = DISPLAYFONT.render(str("Rent: $" + str(self.rent)), True, TEXTCOLOR, BGCOLOR)
-                        rentRect = rent.get_rect()
-                        rentRect.center = (int(boardsize / 2), int(5 * boardsize / 10))
-                        disp.blit(rent,rentRect) 
+			rentRect = rent.get_rect()
+			rentRect.center = (int(boardsize / 2), int(5 * boardsize / 10))
+			disp.blit(rent,rentRect) 
 			mortgage = DISPLAYFONT.render(str("Mortgage: $" + str(self.mortgage)), True, TEXTCOLOR, BGCOLOR)
-                        mortgageRect = mortgage.get_rect()
-                        mortgageRect.center = (int(boardsize / 2), int(6 * boardsize/ 10))
-                        disp.blit(mortgage,mortgageRect)
-                        fontsize = int(boardsize*.02)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
-                        returntext = DISPLAYFONT.render("Click anywhere to return.", True, TEXTCOLOR, BGCOLOR)
-                        returntextRect = returntext.get_rect()
-                        returntextRect.center = (int(boardsize /2), int(7 * boardsize / 10))
-                        disp.blit(returntext,returntextRect)
-                        pygame.display.update()
-                        for event in pygame.event.get():
-                                if event.type == MOUSEBUTTONDOWN:
-                                        disp.fill(BLACK)
-                                        return False
-                                if(event.type == QUIT):
-                                        sys.exit()
+			mortgageRect = mortgage.get_rect()
+			mortgageRect.center = (int(boardsize / 2), int(6 * boardsize/ 10))
+			disp.blit(mortgage,mortgageRect)
+			fontsize = int(boardsize*.02)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
+			returntext = DISPLAYFONT.render("Click anywhere to return.", True, TEXTCOLOR, BGCOLOR)
+			returntextRect = returntext.get_rect()
+			returntextRect.center = (int(boardsize /2), int(7 * boardsize / 10))
+			disp.blit(returntext,returntextRect)
+			pygame.display.update()
+			for event in pygame.event.get():
+				if event.type == MOUSEBUTTONDOWN:
+					disp.fill(BLACK)
+					return False
+				if(event.type == QUIT):
+					sys.exit()
 
 class CommunityChestSpace(Space):
-
-        def __init__(self,name,picture,spaceType):
-                self.name = name
-                self.picture = picture
-                self.type = spaceType
-
-        def display(self,boardsize,disp):
-                BLACK = (  0,   0,   0)
-                WHITE = (255, 255, 255)
-                TEXTCOLOR = WHITE
-                BGCOLOR = BLACK
-                while True:
-                        fontsize = int(boardsize*.06)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-                        name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
-                        nameRect = name.get_rect()
-                        nameRect.center = (int(boardsize / 2), int(boardsize / 3))
-                        disp.blit(name,nameRect)
-                        fontsize = int(boardsize*.03)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-                        fontsize = int(boardsize*.02)
-                        DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
-                        returntext = DISPLAYFONT.render("Click anywhere to return.", True, TEXTCOLOR, BGCOLOR)
-                        returntextRect = returntext.get_rect()
-                        returntextRect.center = (int(boardsize / 2), int(2 * boardsize / 3))
-                        disp.blit(returntext,returntextRect)
+	def __init__(self,name,picture,spaceType):
+		self.name = name
+		self.picture = picture
+		self.type = spaceType
 
 
-                        pygame.display.update()
-                        for event in pygame.event.get():
-                                if event.type == MOUSEBUTTONDOWN:
-                                        disp.fill(BLACK)
-                                        return False
-                                if(event.type == QUIT):
-                                        sys.exit()
+	def display(self,boardsize,disp):
+		BLACK = (  0,   0,   0)
+		WHITE = (255, 255, 255)
+		TEXTCOLOR = WHITE
+		BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
+		while True:
+			fontsize = int(boardsize*.06)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+			name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
+			nameRect = name.get_rect()
+			nameRect.center = (int(boardsize / 2), int(boardsize / 3))
+			disp.blit(name,nameRect)
+			fontsize = int(boardsize*.03)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+			fontsize = int(boardsize*.02)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
+			returntext = DISPLAYFONT.render("Click anywhere to return.", True, TEXTCOLOR, BGCOLOR)
+			returntextRect = returntext.get_rect()
+			returntextRect.center = (int(boardsize / 2), int(2 * boardsize / 3))
+			disp.blit(returntext,returntextRect)
+
+			pygame.display.update()
+			for event in pygame.event.get():
+				if event.type == MOUSEBUTTONDOWN:
+					disp.fill(BLACK)
+					return False
+				if(event.type == QUIT):
+					sys.exit()
 
 class ChanceSpace(Space):
 
-        def __init__(self,name,picture,spaceType):
-                self.name = name
-                self.picture = picture
-                self.type = spaceType
+	def __init__(self,name,picture,spaceType):
+		self.name = name
+		self.picture = picture
+		self.type = spaceType
 
         def display(self,boardsize,disp):
                 BLACK = (  0,   0,   0)
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
                 while True:
                         fontsize = int(boardsize*.06)
                         DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
@@ -267,6 +279,9 @@ class JailSpace(Space):  #Still need to figure out what's going on with Jail Spa
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
 		if(self.injail == None):
 			listinjail = 'None'
 		else:
@@ -321,6 +336,9 @@ class UtilitiesSpace(Space):
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
 		if(self.bothowned == True):
 			self.rent = '10x dice roll'
 		if(self.owner == None):
@@ -382,6 +400,9 @@ class TaxSpace(Space):
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
                 while True:
                         fontsize = int(boardsize*.06)
                         DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
@@ -423,6 +444,9 @@ class GoToJailSpace(Space):
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
                 while True:
                         fontsize = int(boardsize*.06)
                         DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
@@ -464,6 +488,9 @@ class FreeParkingSpace(Space):
                 WHITE = (255, 255, 255)
                 TEXTCOLOR = WHITE
                 BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
                 while True:
                         fontsize = int(boardsize*.06)
                         DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)

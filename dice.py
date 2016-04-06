@@ -9,11 +9,11 @@ class Dice:
         pygame.init()
         self.boardsize = boardsize
         
-        self.DISPLAY = pygame.display.set_mode((boardsize, boardsize))
+        #self.DISPLAY = pygame.display.set_mode((boardsize, boardsize))
         self.fpsClock = pygame.time.Clock()
-        self.cornersize = 2*(boardsize/13) #height and width of corner board pieces
-        self.edgewidth = (boardsize/13) #width of non-corner board pieces
-        self.edgeheight = 2*(boardsize/13) #height of non-corner board pieces
+        self.cornersize = 2*(boardsize/12.0) #height and width of corner board pieces
+        self.edgewidth = (boardsize/12.0) #width of non-corner board pieces
+        self.edgeheight = 2*(boardsize/12.0) #height of non-corner board pieces
 
     global BLACK, WHITE, BRIGHT_WHITE, GREEN, TEXTCOLOR, BGCOLOR, dice1, dice2, dice3, dice4, dice5, dice6    
     BLACK      = (  0,   0,   0) 
