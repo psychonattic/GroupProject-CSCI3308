@@ -80,8 +80,9 @@ def main(boardsize, fps, boardspaces):
     while board.run() != False:
         clock.tick(fps)
 
+if __name__ == '__main__': #Turns out it's impossible to do unit tests without this
+    if len(argv) == 2:
+        main(600, 20, loadSpaces(argv[1]))
+    else:
+        main(600, 20, loadSpaces("default"))
 
-if len(argv) == 2:
-    main(600, 20, loadSpaces(argv[1]))
-else:
-    main(600, 20, loadSpaces("default"))
