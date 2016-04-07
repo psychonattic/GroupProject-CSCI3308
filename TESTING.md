@@ -8,7 +8,7 @@
 ##Title: Modopoly
 
 ##Vision Statement:
- * To create an open source Monopoly game using pygame, with the ability to customize the board to the user's liking.
+ * To create an open source, modular Monopoly game using pygame, with the ability to customize the board to the user's liking.
 
 ##Automated Tests:
  * Automated Testing can only be run in the ["testcase" branch](https://github.com/John-Gallagher/GroupProject-CSCI3308/tree/testcase) of the repository.
