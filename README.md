@@ -10,10 +10,11 @@
 ## Mod Monopoly
 
 ## Description:
-An open source Monopoly clone, with the ability to customize it.
+An open source, customizable Monopoly clone written in pygame
 
 ## Vision Statement:
 To create an open source Monopoly game using pygame, with the ability to customize the board to the user's liking.
+
 ## Motivation: 
 To make players smile while combining our love of modularity and board game.
 
