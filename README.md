@@ -91,7 +91,7 @@ Agile Process
 ![alt text](https://cloud.githubusercontent.com/assets/14183096/13134718/e07562dc-d5c6-11e5-95ed-69e5f7f78775.png "Trello Board Screenshot")
 
 ##TESTING:
-  - Automated Testing can only be run in the ("testcase" branch)[https://github.com/John-Gallagher/GroupProject-CSCI3308/tree/testcase] of the repository. 
+  - Automated Testing can only be run in the ["testcase" branch](https://github.com/John-Gallagher/GroupProject-CSCI3308/tree/testcase) of the repository. 
   - Link to [google spreadsheet](https://docs.google.com/spreadsheets/d/1766dySpz8GaINldfmhx8DVYB1YtJl12H6tJG3r4XApc/edit?ts=57045bf5#gid=0 ) for User Acceptance Tests 
 	- Click on tabs at the bottom of the sheet to switch between tests.
   
