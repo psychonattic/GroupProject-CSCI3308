@@ -115,7 +115,7 @@ To create a new theme:
 	 5. The cost for each house. This is not the rent cost with houses, this is the price required to get one additional house. (# of cols = # of properties)
 	 6. The color of each property. (# of cols = # of properties)
 
-To run the program with your selected theme:
+To run the program with your selected theme:  
 `python main.py MyTheme`
 
 If your theme does not work, the game will automatically revert to the default theme. If you remove, add, or modify anything in the `./images/themes/default/` directory, you may have to reinstall the game files.
