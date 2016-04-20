@@ -91,6 +91,35 @@ Agile Process
 ## Project plan: 
 ![alt text](https://cloud.githubusercontent.com/assets/14183096/13134718/e07562dc-d5c6-11e5-95ed-69e5f7f78775.png "Trello Board Screenshot")
 
+##THEMES:
+To create a new theme:
+ - Create a new directory under `./images/themes` with the name of your theme. Eg: `./images/themes/MyTheme`
+ - Each theme directory should contain the following:
+ 	- 40 images titled `space0.jpg` to `space39.jpg`. Each image corresponds to the 40 spaces on the board, starting at "Go" (space0) and going clockwise around the board, ending at "Boardwalk" (space39).
+ 	- A `spaces.csv` file with six rows
+ - Each row in `spaces.csv` should be as follows:
+	 1. The title of each of the 40 spaces, starting at Go, going clockwise. (40 cols)
+	 2. The type of each space. There are different 10 spaces: (40 cols)
+	 	- "property" - A purchasable property that can have houses on it
+	 	- "railroad" - A purchasable railroad space, traditionally four on a board, in the middle of each row
+	 	- "utility" - A purchasable utility space, traditionally two on a board.
+	 	- "tax" - Income/Luxury Tax space. Non-purchasable. Traditionally two on a board
+	 	- "chest" - Community Chest space. Non-purchasable. Draw a Community Chest card.
+	 	- "chance" - Chance space. Non-purchasable. Draw a Chance card.
+	 	- "go" - The initial space you start at. bottom-right corner
+	 	- "jail" - In Jail/Just Visiting space. bottom-left corner of the board.
+	 	- "parking" - The Free Parking space. top-left corner.
+	 	- "gotojail" - Player goes to jail when on this space. top-right corner.
+	 3. The price for each of the purchasable spaces. This includes properties, railroads, and utilities. (# of cols = # of properties + railroads + utilities on the board)
+	 4. The rent for each of the purchasable spaces, not inluding utilities. (# of cols = # of properties + railroads)
+	 5. The cost for each house. This is not the rent cost with houses, this is the price required to get one additional house. (# of cols = # of properties)
+	 6. The color of each property. (# of cols = # of properties)
+
+To run the program with your selected theme:
+`python main.py MyTheme`
+
+If your theme does not work, the game will automatically revert to the default theme. If you remove, add, or modify anything in the `./images/themes/default/` directory, you may have to reinstall the game files.
+
 ##TESTING:
   - Automated Testing can only be run in the ["testcase" branch](https://github.com/John-Gallagher/GroupProject-CSCI3308/tree/testcase) of the repository. 
   - Link to [google spreadsheet](https://docs.google.com/spreadsheets/d/1766dySpz8GaINldfmhx8DVYB1YtJl12H6tJG3r4XApc/edit?ts=57045bf5#gid=0 ) for User Acceptance Tests 
