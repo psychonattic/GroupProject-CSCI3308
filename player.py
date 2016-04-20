@@ -3,6 +3,7 @@ class Player:
 		self.money = money
 		self.properties = properties
 		self.icon = icon
+		self.pos = 0
 
 	def gainMoney(moneygained): #method for when you get money 
 		self.money += moneygained

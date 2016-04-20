@@ -2,10 +2,10 @@ import random, sys, pygame, time, copy
 from pygame.locals import *
 from Space import *
 from dice import *
-
+from player import *
 class GameBoard:
 
-    def __init__(self, boardsize,Framepersecond, spaces):
+    def __init__(self, boardsize,Framepersecond, spaces, numplayers, pieces):
         pygame.init()
         self.d1 = 0 #initialize dice values
         self.d2 = 0
@@ -18,8 +18,10 @@ class GameBoard:
         self.cornersize = 1.5*(boardsize/12.0) #height and width of corner board pieces
         self.edgewidth = 1.0*(boardsize/12.0) #width of non-corner board pieces
         self.edgeheight = 1.5*(boardsize/12.0) #height of non-corner board pieces
-        
-
+	self.players = []
+	#self.pieces = pieces # array of player image
+        for i in range(0, (self.players-1)):
+		self.players.append(Player(1500,0,pieces[i]))
     global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR
     BLACK = (  0,   0,   0) 
     WHITE = (255, 255, 255)
@@ -27,6 +29,9 @@ class GameBoard:
     RED = (255,0,0)
     TEXTCOLOR = WHITE
     BGCOLOR = BLACK
+    
+
+	
 
 
     def run(self): #main game loop - currently just has a quit button
@@ -45,6 +50,8 @@ class GameBoard:
         self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
         self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
         self.DISPLAY.blit(beginSurf,optionRect) #displays options button
+	for p in self.players:
+		self.dispPlayer(p.pos,p.icon)
         pygame.display.update() #updates the screen
         self.fpsClock.tick(self.Framepersecond)
         for event in pygame.event.get():
@@ -54,7 +61,7 @@ class GameBoard:
                     self.optionScreen() #quits the run loop
                 if rollRect.collidepoint((mousex, mousey)):
                     self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
-                print self.getProperty(mousex,mousey)
+                #print self.getProperty(mousex,mousey)
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
                     self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
                     #self.run()
@@ -78,6 +85,10 @@ class GameBoard:
         die2 = dice.dice_roll2(d2) #gets image for d2
         self.DISPLAY.blit(die1, (125, 375)) #displays d1
         self.DISPLAY.blit(die2, (375, 375)) #displays d2
+    def dispPlayer(self, playerpos, playerpiece):
+	pos = self.spaces[playerpos]
+	piece = pygame.image.load(playerpiece).convert()
+	
         
     def optionScreen(self):
         while True:
@@ -173,6 +184,7 @@ class GameBoard:
         
         #Displays each corner piece
         for i in range(0,4):
+	    self.spaces[i*10].setpos(blitdest[i]
             corner = pygame.image.load(self.spaces[i*10].picture).convert() #Convert image to new pixel format
             corner = pygame.transform.scale(corner,(yimage,yimage)) #Scale image
             self.DISPLAY.blit(corner,blitdest[i]) #Display corner piece at blit destination

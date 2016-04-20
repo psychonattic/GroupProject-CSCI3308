@@ -2,18 +2,22 @@ from abc import ABCMeta
 import random, sys, pygame, time, copy
 from pygame.locals import *
 class Space:
-
+	
 	 __metaclass__ = ABCMeta
-
+	 self.x = 0
+	 self.y = 0
 	 def display(self):
 	 	return
-
+	 def setpos(x1, x2, y1, y2):
+		self.x = x1 - x2
+		self.y = y1 - y2
 class GoSpace(Space):
 
 	def __init__(self,name,picture,spaceType): 
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
+		
 
 	def display(self,boardsize,disp):
 		BLACK = (  0,   0,   0) 
