@@ -54,7 +54,6 @@ class GameBoard:
                     self.optionScreen() #quits the run loop
                 if rollRect.collidepoint((mousex, mousey)):
                     self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
-                print self.getProperty(mousex,mousey)
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
                     self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
                     #self.run()
@@ -168,7 +167,7 @@ class GameBoard:
         endpoint = long(self.boardsize-self.cornersize)
         blitdest = [(endpoint,endpoint),(0,endpoint),(0,0),(endpoint,0)] #Array for blit destinations
         
-        if (d1 and d2) != 0: #if button has been pressed dice appear
+        if d1 != 0 and d2 != 0: #if button has been pressed dice appear
             self.diceDisplay(d1, d2)
         
         #Displays each corner piece
