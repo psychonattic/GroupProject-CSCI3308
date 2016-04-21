@@ -5,13 +5,14 @@ from dice import *
 
 class GameBoard:
 
-    def __init__(self, boardsize,Framepersecond, spaces):
+    def __init__(self, boardsize,Framepersecond, spaces, pieces):
         pygame.init()
         self.d1 = 0 #initialize dice values
         self.d2 = 0
         self.boardsize = boardsize
         self.Framepersecond = Framepersecond
         self.spaces = spaces
+        self.pieces = pieces
         self.DISPLAY = pygame.display.set_mode((boardsize, boardsize),RESIZABLE)
         self.GAMEFONT = pygame.font.Font('freesansbold.ttf', 20)
         self.fpsClock = pygame.time.Clock()
@@ -119,47 +120,24 @@ class GameBoard:
                 if(event.type == QUIT):
                     sys.exit()
 
+    def drawPlayers(self):
+        """
+        #Replace first 3 lines with this to test icon centering
+        for i in range(0, 40):
+            piecePos = i
+            piece = pygame.image.load(self.pieces[i]).convert()
+        """
+        for i in range(len(self.pieces)):
+            piecePos = 0 #should be something like: piecePos = self.player[i].pos
+            piece = pygame.image.load(self.pieces[i]).convert()
+            piece = pygame.transform.scale(piece,(50,50))
+            spaceSize1 = abs(self.spaces[piecePos].edge3-self.spaces[piecePos].edge1)
+            spaceSize2 = abs(self.spaces[piecePos].edge4-self.spaces[piecePos].edge2)
+            centerSpace1 = abs(self.spaces[piecePos].edge1-(spaceSize1/2.0))
+            centerSpace2 = abs(self.spaces[piecePos].edge2-(spaceSize2/2.0))
+            (tokenWidth, tokenHeight) = piece.get_size()
+            self.DISPLAY.blit(piece, (centerSpace1-tokenWidth/2.0, centerSpace2-tokenHeight/2.0))
 
-    def startScreen(self):
-        while True:
-            self.DISPLAY.fill(BLACK)
-            pygame.display.set_caption('Mod Monopoly') 
-            fontsize = int(self.boardsize*.04)
-            STARTFONT = pygame.font.Font('freesansbold.ttf', fontsize)  #font for start screen
-            newGameStart = STARTFONT.render('Start', True, TEXTCOLOR, BGCOLOR) #renders start button
-            newGameRect = newGameStart.get_rect() #gets the rect value of start button
-            newGameRect.center = (int(3*(self.boardsize / 4)), (self.boardsize-(newGameRect.height))) #places start button on botton of the screen
-            newGameExit = STARTFONT.render('Exit', True, TEXTCOLOR, BGCOLOR) #renders exit button
-            newGameExitRect = newGameExit.get_rect() #gets the exit button rect value
-            newGameExitRect.center = (int(self.boardsize / 4), (self.boardsize-(newGameRect.height))) #puts exit button on bottom of the screen
-            text1 = "Welcome to Mod-opoly!" #welcome message
-            text2 = "Click 'Start' to continue or 'Exit' to quit" #instructions message
-            screen_text1 = STARTFONT.render(text1, True, WHITE) #renders welcome message
-            screen_text2 = STARTFONT.render(text2, True, WHITE) #render instruction message
-            self.DISPLAY.blit(screen_text1, [self.boardsize/4,self.boardsize/4]) #displays welcome message
-            self.DISPLAY.blit(screen_text2, [self.boardsize/8,self.boardsize/2]) #displays instruction message
-            self.DISPLAY.blit(newGameStart,newGameRect) #display start button
-            self.DISPLAY.blit(newGameExit,newGameExitRect) #display exit button
-            pygame.display.update() #updates the screen
-            for event in pygame.event.get():
-                if event.type == MOUSEBUTTONUP:  #checks for mouse click
-                    mousex, mousey = event.pos #gets coordinates of mouse click
-                    if newGameRect.collidepoint((mousex, mousey)): #checks if mouse click is in start button
-                        print "start"
-                        self.DISPLAY.fill(BLACK) #resets the screen
-                        return False #exits start screen
-                    elif newGameExitRect.collidepoint((mousex,mousey)): #checks if mouse click is in exit button
-                        print "exit"
-                        sys.exit() #exits the game
-                if (event.type == VIDEORESIZE): #ALL OF THIS DEALS WITH RESIZING ISSUES
-                    self.DISPLAY = pygame.display.set_mode((event.w,event.w),RESIZABLE)
-                    self.boardsize = event.w
-                    self.cornersize = 1.5*(self.boardsize/12.0) #height and width of corner board pieces
-                    self.edgewidth = 1.0*(self.boardsize/12.0) #width of non-corner board pieces
-                    self.edgeheight = 1.5*(self.boardsize/12.0) #height of non-corner board pieces
-                if(event.type == QUIT):
-                    sys.exit()
-                    
 
     def drawBoard(self, d1, d2): #DRAWS THE BOARD EVERY TURN	
         ximage = int(self.edgewidth)
@@ -172,6 +150,10 @@ class GameBoard:
         
         #Displays each corner piece
         for i in range(0,4):
+            self.spaces[i*10].edge1 = blitdest[i][0]+self.cornersize
+            self.spaces[i*10].edge2 = blitdest[i][1]+self.cornersize
+            self.spaces[i*10].edge3 = blitdest[i][0]
+            self.spaces[i*10].edge4 = blitdest[i][1]
             corner = pygame.image.load(self.spaces[i*10].picture).convert() #Convert image to new pixel format
             corner = pygame.transform.scale(corner,(yimage,yimage)) #Scale image
             self.DISPLAY.blit(corner,blitdest[i]) #Display corner piece at blit destination
@@ -179,7 +161,7 @@ class GameBoard:
         
         #Displays each non-corner piece
         spacepos = long(endpoint-self.edgewidth) #start to the left of "Go" for bottom row
-        for i in range(1,10)+range(11,20)+range(21,30)+range(31,40): #Skip edges
+        for i in range(1,10)+range(11,20)+range(21,30)+range(31,40): #Skip corners
             if i == 11:
                 #Start above Jail for left column
                 spacepos = long(endpoint-self.edgewidth)
@@ -188,26 +170,45 @@ class GameBoard:
                 spacepos = long(self.cornersize)
 
             image = pygame.image.load(self.spaces[i].picture).convert()
+            
             if i > 0 and i < 10:
+                self.spaces[i].edge1 = spacepos+self.edgewidth
+                self.spaces[i].edge2 = self.boardsize
+                self.spaces[i].edge3 = spacepos
+                self.spaces[i].edge4 = self.boardsize-self.edgeheight
                 image = pygame.transform.scale(image, (ximage, yimage)) #Scale by x, y for rows
                 self.DISPLAY.blit(image,(spacepos,endpoint))
                 pygame.draw.rect(self.DISPLAY,BLACK,(spacepos,endpoint,self.edgewidth,self.edgeheight),2)
                 spacepos -= self.edgewidth #Go from right to left by subtracting
             elif i > 10 and i < 20:
+                self.spaces[i].edge1 = 0
+                self.spaces[i].edge2 = spacepos+self.edgewidth
+                self.spaces[i].edge3 = self.edgeheight
+                self.spaces[i].edge4 = spacepos
                 image = pygame.transform.scale(image, (yimage, ximage)) #Scale by y, x for cols
                 self.DISPLAY.blit(image,(0,spacepos))
                 pygame.draw.rect(self.DISPLAY,BLACK,(0,spacepos,self.edgeheight,self.edgewidth),2)
                 spacepos -= self.edgewidth #Go from bottom to top
             elif i > 20 and i < 30:
+                self.spaces[i].edge1 = spacepos+self.edgewidth
+                self.spaces[i].edge2 = 0
+                self.spaces[i].edge3 = spacepos
+                self.spaces[i].edge4 = self.edgeheight
                 image = pygame.transform.scale(image, (ximage, yimage))
                 self.DISPLAY.blit(image, (spacepos,0))
                 pygame.draw.rect(self.DISPLAY,BLACK,(spacepos,0,self.edgewidth,self.edgeheight),2)
                 spacepos += self.edgewidth #Go from left to right
             elif i > 30 and i <40:
+                self.spaces[i].edge1 = self.boardsize
+                self.spaces[i].edge2 = spacepos+self.edgewidth
+                self.spaces[i].edge3 = self.boardsize-self.edgeheight
+                self.spaces[i].edge4 = spacepos
                 image = pygame.transform.scale(image, (yimage, ximage))
                 self.DISPLAY.blit(image,(endpoint,spacepos))
                 pygame.draw.rect(self.DISPLAY,BLACK,(endpoint,spacepos,self.edgeheight,self.edgewidth),2)
                 spacepos += self.edgewidth #Go from top to bottom
+                
+        self.drawPlayers()
         return 0
 
 

@@ -153,7 +153,8 @@ class Start:
 			if os.path.exists(i_path):
 				tokens.append(i_path)
 			else:
-				print "Error loading game piece images. Please reinstall game files."
+			    print "Error loading game piece images. Please reinstall game files."
+                            exit(0)
 			
 
 		piece0 = pygame.image.load(tokens[0]).convert() #Convert image to new pixel format

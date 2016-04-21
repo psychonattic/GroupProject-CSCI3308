@@ -2,15 +2,27 @@ from abc import ABCMeta
 import random, sys, pygame, time, copy
 from pygame.locals import *
 class Space:
-
 	 __metaclass__ = ABCMeta
 
+         def __init__(self):
+             self.edge1 = 0
+             self.edge2 = 0
+             self.edge3 = 0
+             self.edge4 = 0
+
 	 def display(self):
-	 	return
+             return
+
+         def setPos(edge1, edge2, edge3, edge4):
+             self.edge1 = edge1
+             self.edge2 = edge2
+             self.edge3 = edge3
+             self.edge4 = edge4
 
 class GoSpace(Space):
 
 	def __init__(self,name,picture,spaceType): 
+                Space.__init__(self)
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
@@ -52,8 +64,8 @@ class GoSpace(Space):
 					sys.exit()
 
 class PropertySpace(Space):
-
 	def __init__(self,name,picture,spaceType,color,price,rent,housecost): 
+                Space.__init__(self)
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
@@ -130,6 +142,7 @@ class PropertySpace(Space):
 
 class RailRoadSpace(Space):
 	def __init__(self,name,picture,spaceType,price,rent):
+                Space.__init__(self)
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
@@ -188,8 +201,8 @@ class RailRoadSpace(Space):
 					sys.exit()
 
 class UtilitiesSpace(Space):
-
         def __init__(self,name,picture,spaceType,price):
+                Space.__init__(self)
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
@@ -257,8 +270,8 @@ class UtilitiesSpace(Space):
                                         sys.exit()
 
 class TaxSpace(Space):
-
         def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
@@ -305,6 +318,7 @@ class TaxSpace(Space):
 
 class CommunityChestSpace(Space):
 	def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
@@ -343,8 +357,8 @@ class CommunityChestSpace(Space):
 					sys.exit()
 
 class ChanceSpace(Space):
-
 	def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
 		self.name = name
 		self.picture = picture
 		self.type = spaceType
@@ -383,8 +397,8 @@ class ChanceSpace(Space):
                                         sys.exit()
 
 class FreeParkingSpace(Space):
-
         def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
@@ -428,8 +442,8 @@ class FreeParkingSpace(Space):
 
 
 class JailSpace(Space):  #Still need to figure out what's going on with Jail Space/Just Visiting
-
         def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
@@ -481,8 +495,8 @@ class JailSpace(Space):  #Still need to figure out what's going on with Jail Spa
 
 
 class GoToJailSpace(Space):
-
         def __init__(self,name,picture,spaceType):
+                Space.__init__(self)
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
@@ -532,17 +546,3 @@ class GoToJailSpace(Space):
                                         return False
                                 if(event.type == QUIT):
                                         sys.exit()
-
-
-
-
-
-
-
-
-				
-		
-
-
-
-

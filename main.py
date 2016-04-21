@@ -27,8 +27,9 @@ def loadSpaces(theme_name):
     property_rent = []
     house_prices = []
     property_colors = []
-    try:
-        with open("./images/themes/"+theme_name+"/spaces.csv", 'rb') as titlesfile:
+    csv_path = "./images/themes/"+theme_name+"/spaces.csv"
+    if os.path.exists(csv_path):
+        with open(csv_path, 'rb') as titlesfile:
             #itertools.tee sets up a second reader: One gets the # of cols for each row
             #The other goes through each row and appends spaces to their appropriate lists
             reader1, reader2 = itertools.tee(csv.reader(titlesfile, delimiter=','))
@@ -83,9 +84,8 @@ def loadSpaces(theme_name):
             
             titlesfile.close() #Always remember to close out of the file!
 
-    except:
-        #This happens if there's a major error in the theme not caught in the if statements
-        print "Unknown error loading theme \'%s\'. Theme may not exist." % theme_name
+    else:
+        print "Path to theme \'%s\' does not exist or %s/spaces.csv does not exist." % (theme_name, theme_name)
         return loadSpacesError(theme_name == "default")
 
     spaces = []
@@ -115,7 +115,7 @@ def loadSpaces(theme_name):
             elif space_types[i] == "gotojail":
                 spaces.append(GoToJailSpace(space_titles[i], image_path, space_types[i]))
         else:
-            #This happens if any image space0.png-space39.png does not exist
+            #Some image space0.png-space39.png does not exist
             print "Theme \'%s\' does not contain image files for all 40 spaces." % theme_name
             return loadSpacesError(theme_name == "default")
 
@@ -129,7 +129,7 @@ def main(boardsize, fps, boardspaces):
     start = Start(boardsize)
     (pieces, numplayers) = start.startnew()
 
-    board = GameBoard(boardsize, fps, boardspaces)
+    board = GameBoard(boardsize, fps, boardspaces, pieces)
     board.run()
 
     while board.run() != False:
