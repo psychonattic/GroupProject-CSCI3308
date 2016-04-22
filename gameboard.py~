@@ -73,13 +73,11 @@ class GameBoard:
                     self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
                     if (self.d1 == self.d2):
                         self.players[self.turn].jail = False
-                        print ("Got Out of Jail, You Lucky Bastard.")
                     if (self.players[self.turn].jail == False):
                         self.players[self.turn].pos += self.d1 + self.d2
                         if (self.players[self.turn].pos == 30):
                             self.players[self.turn].jail = True
                             self.players[self.turn].pos = 10
-                            print ("You have been sent to jail. Way to go.")
                         if (self.players[self.turn].pos%40 != self.players[self.turn].pos):
                             self.players[self.turn].money+=200
                     #if self.players[self.turn].jail == True
