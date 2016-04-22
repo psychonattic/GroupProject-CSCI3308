@@ -45,7 +45,7 @@ class GameBoard:
         
         rollSurf = pygame.font.Font(None, 40).render('Roll', True, BLACK, GREEN) #renders roll button
         rollRect = rollSurf.get_rect() #rect for option button
-        rollRect.center = (int(self.boardsize / 2), 150) #centers roll button
+        rollRect.center = (int(self.boardsize / 2), (self.boardsize/6)*2) #centers roll button
 
         endTurnSurf = pygame.font.Font(None, 40).render('End Turn', True, BLACK, GREEN) #renders roll button
         endTurnRect = endTurnSurf.get_rect()
@@ -69,6 +69,10 @@ class GameBoard:
                     self.players[self.turn].pos += self.d1 + self.d2
                     self.players[self.turn].pos %= 40
                     self.endturn = True
+                if endTurnRect.collidepoint((mousex, mousey)) and self.endturn:
+                    self.turn +=1
+                    self.turn %= len(self.players)
+                    self.endturn = False
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
                     self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
                     #self.run()
