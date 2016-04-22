@@ -22,6 +22,7 @@ class GameBoard:
         self.edgeheight = 1.5*(boardsize/12.0) #height of non-corner board pieces
         self.endturn = False
         self.turn = 0
+        self.doubles = 0
 
         
 
@@ -71,20 +72,29 @@ class GameBoard:
                     self.endturn = False
                 if rollRect.collidepoint((mousex, mousey)) and not self.endturn:
                     self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
-                    if (self.d1 == self.d2):
+                    if ((self.d1 == self.d2) and (self.players[self.turn].jail == True)):
                         self.players[self.turn].jail = False
+                        self.players[self.turn].jailcount = 0
                         print ("Got Out of Jail, You Lucky Bastard.")
                     if (self.players[self.turn].jail == False):
+                        if (self.d1 == self.d2):
+                            self.doubles += 1
                         self.players[self.turn].pos += self.d1 + self.d2
-                        if (self.players[self.turn].pos == 30):
+                        if (self.players[self.turn].pos == 30) or (self.doubles == 3):
                             self.players[self.turn].jail = True
                             self.players[self.turn].pos = 10
                             print ("You have been sent to jail. Way to go.")
                         if (self.players[self.turn].pos%40 != self.players[self.turn].pos):
                             self.players[self.turn].money+=200
-                    #if self.players[self.turn].jail == True
-                    #does jail turn
+                    if (self.players[self.turn].jail == True):
+                        self.players[self.turn].jailcount += 1
+                        if (self.players[self.turn].jailcount == 3):
+                            self.players[self.turn].money -= 50
+                            self.players[self.turn].jail = False
+                            print ("You were deducted $50 and released from jail")
                     self.players[self.turn].pos %= 40
+                    #add property actions (community chest, GO, buying property, etc) under here:
+                    self.doubles = 0
                     self.endturn = True
                 
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:

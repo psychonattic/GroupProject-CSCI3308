@@ -5,6 +5,7 @@ class Player:
 		self.icon = icon
 		self.pos = pos #Current space the piece is on (0-39)
 		self.jail = False
+		self.jailcount = 0
 
 	def gainMoney(moneygained): #method for when you get money 
 		self.money += moneygained
