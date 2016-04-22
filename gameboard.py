@@ -45,18 +45,19 @@ class GameBoard:
         
         rollSurf = pygame.font.Font(None, 40).render('Roll', True, BLACK, GREEN) #renders roll button
         rollRect = rollSurf.get_rect() #rect for option button
-        rollRect.center = (int(self.boardsize / 2), (self.boardsize/6)*2) #centers roll button
+        rollRect.center = (int(self.boardsize / 2), (self.boardsize/6)*2.5) #centers roll button
 
         endTurnSurf = pygame.font.Font(None, 40).render('End Turn', True, BLACK, GREEN) #renders roll button
         endTurnRect = endTurnSurf.get_rect()
         endTurnRect.center = (int(self.boardsize / 2), (self.boardsize/6)*2)
         
         self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
-        if(not self.endturn):
-            self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
+       
         self.DISPLAY.blit(beginSurf,optionRect) #displays options button
         if(self.endturn):
             self.DISPLAY.blit(endTurnSurf,endTurnRect)
+        if(not self.endturn):
+            self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
         pygame.display.update() #updates the screen
         self.fpsClock.tick(self.Framepersecond)
         for event in pygame.event.get():
@@ -64,15 +65,18 @@ class GameBoard:
                 mousex, mousey = event.pos #saves x,y values of mouse click
                 if optionRect.collidepoint((mousex, mousey)): #checks if mouse click is in options button
                     self.optionScreen() #quits the run loop
-                if rollRect.collidepoint((mousex, mousey)) and not self.endturn:
-                    self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
-                    self.players[self.turn].pos += self.d1 + self.d2
-                    self.players[self.turn].pos %= 40
-                    self.endturn = True
                 if endTurnRect.collidepoint((mousex, mousey)) and self.endturn:
                     self.turn +=1
                     self.turn %= len(self.players)
                     self.endturn = False
+                if rollRect.collidepoint((mousex, mousey)) and not self.endturn:
+                    self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
+                    self.players[self.turn].pos += self.d1 + self.d2
+                    if (self.players[self.turn].pos%40 != self.players[self.turn].pos):
+                        self.players[self.turn].money+=200
+                    self.players[self.turn].pos %= 40
+                    self.endturn = True
+                
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
                     self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
                     #self.run()
@@ -96,8 +100,10 @@ class GameBoard:
 
         die1 = dice.dice_roll(d1) #gets image for d1
         die2 = dice.dice_roll2(d2) #gets image for d2
-        self.DISPLAY.blit(die1, (125, 375)) #displays d1
-        self.DISPLAY.blit(die2, (375, 375)) #displays d2
+        die1 = pygame.transform.scale(die1,((self.boardsize/6),(self.boardsize/6)))
+        die2 = pygame.transform.scale(die2,((self.boardsize/6),(self.boardsize/6)))
+        self.DISPLAY.blit(die1, (self.boardsize/4, 4*(self.boardsize/6))) #displays d1
+        self.DISPLAY.blit(die2, (self.boardsize/2, 4*(self.boardsize/6))) #displays d2
         
     def optionScreen(self):
         while True:
@@ -150,7 +156,7 @@ class GameBoard:
         for i in range(len(self.players)):
             piecePos = self.players[i].pos #should be something like: piecePos = self.player[i].pos
             piece = pygame.image.load(self.players[i].icon).convert()
-            piece = pygame.transform.scale(piece,(50,50))
+            piece = pygame.transform.scale(piece,(self.boardsize/12,self.boardsize/12))
             spaceSize1 = abs(self.spaces[piecePos].edge3-self.spaces[piecePos].edge1)
             spaceSize2 = abs(self.spaces[piecePos].edge4-self.spaces[piecePos].edge2)
             centerSpace1 = abs(self.spaces[piecePos].edge1-(spaceSize1/2.0))
