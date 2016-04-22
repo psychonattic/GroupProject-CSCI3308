@@ -2,6 +2,7 @@ import random, sys, pygame, time, copy
 from pygame.locals import *
 from Space import *
 from gameboard import *
+from player import *
 import itertools
 import os
 
@@ -300,6 +301,10 @@ class Start:
   		#	print item
 
 		#return values
-		return (choosepiece, self.NUMPLAYERS)
+		players = []
+		for i in range(len(choosepiece)):
+			play = Player(1500,choosepiece[i],0)
+			players.append(play)
+		return players
 
 

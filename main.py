@@ -121,15 +121,17 @@ def loadSpaces(theme_name):
 
     return spaces
 
+    
+
 def main(boardsize, fps, boardspaces):
     pygame.init()
     done = False
     clock = pygame.time.Clock()
 
     start = Start(boardsize)
-    (pieces, numplayers) = start.startnew()
+    players = start.startnew()
 
-    board = GameBoard(boardsize, fps, boardspaces, pieces)
+    board = GameBoard(boardsize, fps, boardspaces, players)
     board.run()
 
     while board.run() != False:

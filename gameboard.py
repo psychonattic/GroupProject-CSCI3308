@@ -2,23 +2,27 @@ import random, sys, pygame, time, copy
 from pygame.locals import *
 from Space import *
 from dice import *
+from player import *
 
 class GameBoard:
 
-    def __init__(self, boardsize,Framepersecond, spaces, pieces):
+    def __init__(self, boardsize,Framepersecond, spaces, players):
         pygame.init()
         self.d1 = 0 #initialize dice values
         self.d2 = 0
         self.boardsize = boardsize
         self.Framepersecond = Framepersecond
         self.spaces = spaces
-        self.pieces = pieces
+        self.players = players
         self.DISPLAY = pygame.display.set_mode((boardsize, boardsize),RESIZABLE)
         self.GAMEFONT = pygame.font.Font('freesansbold.ttf', 20)
         self.fpsClock = pygame.time.Clock()
         self.cornersize = 1.5*(boardsize/12.0) #height and width of corner board pieces
         self.edgewidth = 1.0*(boardsize/12.0) #width of non-corner board pieces
         self.edgeheight = 1.5*(boardsize/12.0) #height of non-corner board pieces
+        self.endturn = False
+        self.turn = 0
+
         
 
     global BLACK, WHITE, GREEN, RED, TEXTCOLOR, BGCOLOR
@@ -32,6 +36,7 @@ class GameBoard:
 
     def run(self): #main game loop - currently just has a quit button
         #self.DISPLAY = pygame.display.set_mode((self.boardsize, self.boardsize),RESIZABLE)
+        self.DISPLAY.fill(BLACK)
         dice = Dice(self.boardsize)
         pygame.display.set_caption('Mod-opoly')
         beginSurf = self.GAMEFONT.render('Options', True, TEXTCOLOR, BGCOLOR) #renderes options button
@@ -41,11 +46,17 @@ class GameBoard:
         rollSurf = pygame.font.Font(None, 40).render('Roll', True, BLACK, GREEN) #renders roll button
         rollRect = rollSurf.get_rect() #rect for option button
         rollRect.center = (int(self.boardsize / 2), 150) #centers roll button
-        
+
+        endTurnSurf = pygame.font.Font(None, 40).render('End Turn', True, BLACK, GREEN) #renders roll button
+        endTurnRect = endTurnSurf.get_rect()
+        endTurnRect.center = (int(self.boardsize / 2), (self.boardsize/6)*2)
         
         self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
-        self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
+        if(not self.endturn):
+            self.DISPLAY.blit(rollSurf, rollRect) #displays roll button
         self.DISPLAY.blit(beginSurf,optionRect) #displays options button
+        if(self.endturn):
+            self.DISPLAY.blit(endTurnSurf,endTurnRect)
         pygame.display.update() #updates the screen
         self.fpsClock.tick(self.Framepersecond)
         for event in pygame.event.get():
@@ -53,8 +64,11 @@ class GameBoard:
                 mousex, mousey = event.pos #saves x,y values of mouse click
                 if optionRect.collidepoint((mousex, mousey)): #checks if mouse click is in options button
                     self.optionScreen() #quits the run loop
-                if rollRect.collidepoint((mousex, mousey)):
+                if rollRect.collidepoint((mousex, mousey)) and not self.endturn:
                     self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
+                    self.players[self.turn].pos += self.d1 + self.d2
+                    self.players[self.turn].pos %= 40
+                    self.endturn = True
                 if self.getProperty(mousex,mousey) > -1 and self.getProperty(mousex,mousey) < 40:
                     self.spaces[self.getProperty(mousex,mousey)].display(self.boardsize,self.DISPLAY)
                     #self.run()
@@ -70,6 +84,8 @@ class GameBoard:
                 self.run()
             if(event.type == QUIT):
                 sys.exit()
+
+    #def playerTurn(playerIndex,)
 
     def diceDisplay(self, d1, d2):
         dice = Dice(self.boardsize)
@@ -127,9 +143,9 @@ class GameBoard:
             piecePos = i
             piece = pygame.image.load(self.pieces[i]).convert()
         """
-        for i in range(len(self.pieces)):
-            piecePos = 0 #should be something like: piecePos = self.player[i].pos
-            piece = pygame.image.load(self.pieces[i]).convert()
+        for i in range(len(self.players)):
+            piecePos = self.players[i].pos #should be something like: piecePos = self.player[i].pos
+            piece = pygame.image.load(self.players[i].icon).convert()
             piece = pygame.transform.scale(piece,(50,50))
             spaceSize1 = abs(self.spaces[piecePos].edge3-self.spaces[piecePos].edge1)
             spaceSize2 = abs(self.spaces[piecePos].edge4-self.spaces[piecePos].edge2)
