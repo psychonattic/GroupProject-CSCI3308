@@ -295,6 +295,8 @@ class Start:
 					if (starttxtRect.collidepoint((mousex, mousey))): #checks if mouse click is in start button
 						print "started!"
 						started = True
+					if quitbuttonRect.collidepoint((mousex, mousey)): #checks if mouse click is in quit button
+						sys.exit()
 
 		# For testing, to ensure the game piece selections are correct		
 		#for item in choosepiece:             
@@ -303,7 +305,7 @@ class Start:
 		#return values
 		players = []
 		for i in range(len(choosepiece)):
-			play = Player(1500,choosepiece[i],0)
+			play = Player(1500,choosepiece[i],0, i)
 			players.append(play)
 		return players
 
