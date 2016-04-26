@@ -117,7 +117,7 @@ class GameBoard:
 						# if (self.players[self.turn].pos > 0 and self.players[self.turn].pos < 40):
 							
 					if (self.players[self.turn].jail == True):
-						self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
+						#self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
 						self.players[self.turn].jailcount += 1
 						if (self.players[self.turn].jailcount == 3):
 							self.players[self.turn].money -= 50
