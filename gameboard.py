@@ -91,6 +91,7 @@ class GameBoard:
 						if (self.d1 == self.d2):
 							self.doubles += 1
 						self.players[self.turn].pos += self.d1 + self.d2	
+						self.drawBoard(self.d1,self.d2)
 						if (self.players[self.turn].pos == 30) or (self.doubles == 3):
 							self.players[self.turn].jail = True
 							self.players[self.turn].pos = 10
