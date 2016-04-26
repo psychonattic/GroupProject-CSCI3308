@@ -303,7 +303,7 @@ class PropertySpace(Space):
 			disp.blit(owner,ownerRect)
 			price = DISPLAYFONT.render(str("Price: $" + str(self.price)), True, TEXTCOLOR, BGCOLOR)
 			priceRect = price.get_rect()
-			priceRect.center = (int(boardsize / 2), int(5 * boardsize / 10))
+			priceRect.center = (int(boardsize / 2), int(6 * boardsize / 10))
 			disp.blit(price, priceRect)
 			rent = DISPLAYFONT.render(str("Rent: $" + str(self.rent)), True, TEXTCOLOR, BGCOLOR)
 			rentRect = rent.get_rect()
@@ -319,7 +319,7 @@ class PropertySpace(Space):
 			disp.blit(hotels, hotelsRect)
 			housecost = DISPLAYFONT.render(str("House Cost: $" + str(self.housecost)), True, TEXTCOLOR, BGCOLOR)
 			housecostRect = housecost.get_rect()
-			housecostRect.center = (int(3 * boardsize / 4), int(5 * boardsize/ 10))
+			housecostRect.center = (int(2.8 * boardsize / 4), int(5 * boardsize/ 10))
 			disp.blit(housecost,housecostRect)
 			mortgage = DISPLAYFONT.render(str("Mortgage: $" + str(self.mortgage)), True, TEXTCOLOR, BGCOLOR)
 			mortgageRect = mortgage.get_rect()
@@ -369,7 +369,7 @@ class RailRoadSpace(Space):
 		if(self.owner == None):
 			
 			while True:
-				fontsize = int(boardsize*.06)
+				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
 				name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
 				nameRect = name.get_rect()
@@ -445,7 +445,7 @@ class RailRoadSpace(Space):
 		#If property is owned, pay rent
 		elif (self.owner != str("Player " + str(player.name + 1))):
 			while True:
-				fontsize = int(boardsize*.05)
+				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
 				name = DISPLAYFONT.render(str("You Landed On: " + self.name), True, TEXTCOLOR, BGCOLOR) 
 				nameRect = name.get_rect() 
@@ -1154,16 +1154,28 @@ class JailSpace(Space):  #Still need to figure out what's going on with Jail Spa
 		while True:
 			fontsize = int(boardsize*.06)
 			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-			name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
+			jailname = ""
+			if(player.jail):
+				jailname = "Jail"
+			if(not player.jail):
+				jailname = "Just Visitng"
+			name = DISPLAYFONT.render(jailname, True, TEXTCOLOR, BGCOLOR)
 			nameRect = name.get_rect()
 			nameRect.center = (int(boardsize / 2), int(boardsize / 4))
 			disp.blit(name,nameRect)
-			fontsize = int(boardsize*.03)
+			fontsize = int(boardsize*.04)
 			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-			nothing = DISPLAYFONT.render("Just Visiting", True, TEXTCOLOR, BGCOLOR)
+			nothing = DISPLAYFONT.render("You are just visiting", True, TEXTCOLOR, BGCOLOR)
 			nothingRect = nothing.get_rect()
 			nothingRect.center = (int(boardsize / 2), int(boardsize / 2))
-			disp.blit(nothing,nothingRect)
+
+			jail = DISPLAYFONT.render("You are in jail", True, TEXTCOLOR, BGCOLOR)
+			jailRect = jail.get_rect()
+			jailRect.center = (int(boardsize / 2), int(boardsize / 2))
+			if(player.jail):
+				disp.blit(jail,jailRect)
+			if(not player.jail):
+				disp.blit(nothing,nothingRect)
 			
 			fontsize = int(boardsize*.04)
 			DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
@@ -1234,6 +1246,50 @@ class GoToJailSpace(Space):
                 self.name = name
                 self.picture = picture
                 self.type = spaceType
+
+
+        def visit(self, boardsize, disp, player, money, roll):
+			BLACK = (  0,   0,   0) 
+			WHITE = (255, 255, 255)
+			GREEN = (  0, 155,   0)
+			RED = (255, 0 , 0)
+			TEXTCOLOR = WHITE
+			BGCOLOR = BLACK
+			cornersize = 1.5*(boardsize/12.0)
+			rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+			pygame.draw.rect(disp,BLACK,rect)
+			player.jail = True
+			player.pos = 10
+			while True:
+				fontsize = int(boardsize*.06)
+				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+				name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
+				nameRect = name.get_rect()
+				nameRect.center = (int(boardsize / 2), int(boardsize / 4))
+				disp.blit(name,nameRect)
+				fontsize = int(boardsize*.03)
+				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+				nothing = DISPLAYFONT.render("You have been sent to jail!", True, TEXTCOLOR, BGCOLOR)
+				nothingRect = nothing.get_rect()
+				nothingRect.center = (int(boardsize / 2), int(boardsize / 2))
+				disp.blit(nothing,nothingRect)
+				
+				fontsize = int(boardsize*.04)
+				DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
+				buyPropSurf = DISPLAYFONT.render('OK', True, TEXTCOLOR, GREEN) 
+				buyPropRect = buyPropSurf.get_rect()
+				buyPropRect.center = (int(boardsize / 2), (boardsize/10)*8)
+				disp.blit(buyPropSurf,buyPropRect)
+				#pygame.time.Clock().tick(20)
+				pygame.display.update()
+				for event in pygame.event.get():
+					if event.type == MOUSEBUTTONDOWN: 
+						mousex, mousey = event.pos
+						if buyPropRect.collidepoint((mousex, mousey)): 
+							disp.fill(BLACK) 
+							return False
+					if(event.type == QUIT):
+						sys.exit()
 
         def display(self,boardsize,disp):
                 BLACK = (  0,   0,   0)

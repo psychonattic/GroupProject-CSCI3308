@@ -55,6 +55,12 @@ class GameBoard:
 		avFundsSurf = pygame.font.Font(None, 22).render(str("Player " + str((self.players[self.turn].name) + 1) + "'s Available Money: $" + str(self.players[self.turn].money)), True, GREEN, BLACK) 
 		avFundsRect = avFundsSurf.get_rect()
 		avFundsRect.center = (int(self.boardsize / 2), (self.boardsize/6)*3)
+
+		playername = "Player " + str(self.players[self.turn].name + 1) + "'s Turn"
+		name = pygame.font.Font(None, 40).render(playername, True, TEXTCOLOR, BGCOLOR) 
+		nameRect = name.get_rect() 
+		nameRect.center = (int(self.boardsize / 2), int(2 * self.boardsize / 10)) 
+		self.DISPLAY.blit(name,nameRect)
 		
 		self.drawBoard(self.d1, self.d2) #send dice values to drawBoard
 	   
@@ -79,6 +85,8 @@ class GameBoard:
 					self.turn +=1
 					self.turn %= len(self.players)
 					self.endturn = False
+					self.d1 = 0
+					self.d2 = 0
 				if rollRect.collidepoint((mousex, mousey)) and not self.endturn:
 					self.d1, self.d2 = dice.rng() #if roll is clicked, set values of d1, d2 to range(1-6)
 					if self.d1 != 0 and self.d2 != 0: #if button has been pressed dice appear
@@ -92,20 +100,24 @@ class GameBoard:
 							self.doubles += 1
 						self.players[self.turn].pos += self.d1 + self.d2
 						roll = 	self.d1 + self.d2
+						if (self.players[self.turn].pos%40 != self.players[self.turn].pos):
+							self.players[self.turn].money+=200
+							print("Pass Go, Collect $200")
 						self.players[self.turn].pos %= 40
 						self.drawBoard(self.d1,self.d2)
-						if (self.players[self.turn].pos == 30) or (self.doubles == 3):
+						self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
+						if (self.doubles == 3):
 							self.players[self.turn].jail = True
 							self.players[self.turn].pos = 10
 							self.drawBoard(self.d1,self.d2)
 							print ("You have been sent to jail. Way to go.")
-						if (self.players[self.turn].pos%40 != self.players[self.turn].pos):
-							self.players[self.turn].money+=200
-							print("Pass Go, Collect $200")
+						self.drawBoard(self.d1,self.d2)
+						
 
-						if (self.players[self.turn].pos > 0 and self.players[self.turn].pos < 40):
-							self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
+						# if (self.players[self.turn].pos > 0 and self.players[self.turn].pos < 40):
+							
 					if (self.players[self.turn].jail == True):
+						self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
 						self.players[self.turn].jailcount += 1
 						if (self.players[self.turn].jailcount == 3):
 							self.players[self.turn].money -= 50
@@ -164,8 +176,10 @@ class GameBoard:
 			returnGame = STARTFONT.render('Return to Game',True,TEXTCOLOR,BGCOLOR) #renders quit button
 			returnGameRect = returnGame.get_rect()
 			returnGameRect.center = (int(self.boardsize / 4), (self.boardsize/2-(returnGameRect.height)))
-			#quitGameRect.center(0,0)
-			#quitGameRect.center(int(self.boardsize/2),int(self.boardsize/2))
+			
+			
+
+
 			self.DISPLAY.blit(optionsGame,optionGameRect)
 			self.DISPLAY.blit(returnGame,returnGameRect)
 			self.DISPLAY.blit(quitGame,quitGameRect) #display start button
