@@ -89,15 +89,15 @@ class PropertySpace(Space):
 		RED = (255,0,0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		
 		#If unowned, option to buy or exit
 		if(self.owner == None):
 			
 			while True:
-				fontsize = int(boardsize*.05)
+				fontsize = int(boardsize*.03)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
 				name = DISPLAYFONT.render(str("You Landed On: " + self.name), True, TEXTCOLOR, BGCOLOR) 
 				nameRect = name.get_rect() 
@@ -331,8 +331,8 @@ class RailRoadSpace(Space):
 		RED = (255,0,0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		if(self.owner == None):
 			
@@ -540,8 +540,8 @@ class UtilitiesSpace(Space):
 		RED = (255, 0, 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		if(self.owner == None):
 			
@@ -752,8 +752,8 @@ class TaxSpace(Space):
 		RED = (255, 0 , 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		
 		while True:
@@ -862,8 +862,8 @@ class CommunityChestSpace(Space):
 		RED = (255, 0 , 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		while True:
 			fontsize = int(boardsize*.06)
@@ -940,8 +940,8 @@ class ChanceSpace(Space):
 		RED = (255, 0 , 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 	
 		while True:
@@ -1020,8 +1020,8 @@ class FreeParkingSpace(Space):
 		RED = (255, 0 , 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		while True:
 			fontsize = int(boardsize*.06)
@@ -1111,8 +1111,8 @@ class JailSpace(Space):  #Still need to figure out what's going on with Jail Spa
 		RED = (255, 0 , 0)
 		TEXTCOLOR = WHITE
 		BGCOLOR = BLACK
-		cornersize = 3.4*(boardsize/12.0)
-		rect = pygame.Rect(cornersize,cornersize,(boardsize-(2*cornersize)),(boardsize-(2*cornersize))/1.5)
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
 		pygame.draw.rect(disp,BLACK,rect)
 		while True:
 			fontsize = int(boardsize*.06)

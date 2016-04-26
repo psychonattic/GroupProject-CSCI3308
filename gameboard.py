@@ -91,6 +91,7 @@ class GameBoard:
 						if (self.d1 == self.d2):
 							self.doubles += 1
 						self.players[self.turn].pos += self.d1 + self.d2	
+						self.players[self.turn].pos %= 40
 						self.drawBoard(self.d1,self.d2)
 						if (self.players[self.turn].pos == 30) or (self.doubles == 3):
 							self.players[self.turn].jail = True
@@ -107,7 +108,7 @@ class GameBoard:
 							self.players[self.turn].money -= 50
 							self.players[self.turn].jail = False
 							print ("You were deducted $50 and released from jail")
-					self.players[self.turn].pos %= 40
+					
 					
 					#add property actions (community chest, GO, buying property, etc) under here:
 					self.doubles = 0
