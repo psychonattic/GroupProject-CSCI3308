@@ -81,7 +81,7 @@ class PropertySpace(Space):
 		self.owner = None
 
 	#Visit function, essentially display but in response to landing on a space
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
@@ -182,7 +182,7 @@ class PropertySpace(Space):
 									time.sleep(1.5)
 									return False
 		#If property is owned, pay rent
-		else:
+		elif (self.owner != str("Player " + str(player.name + 1))):
 			while True:
 				fontsize = int(boardsize*.05)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
@@ -240,7 +240,8 @@ class PropertySpace(Space):
 									pygame.display.update() #updates the screen
 									time.sleep(1.5)
 									return False	
-										
+		else:
+			return False								
 			
 	def display(self,boardsize,disp):
 		BLACK = (  0,   0,   0) 
@@ -323,7 +324,7 @@ class RailRoadSpace(Space):
 		self.owner = None
 	
 	#Visit function, essentially display but in response to landing on a space
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
@@ -411,7 +412,7 @@ class RailRoadSpace(Space):
 									return False
 						
 		#If property is owned, pay rent
-		else:
+		elif (self.owner != str("Player " + str(player.name + 1))):
 			while True:
 				fontsize = int(boardsize*.05)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
@@ -469,7 +470,9 @@ class RailRoadSpace(Space):
 									pygame.display.update() #updates the screen
 									time.sleep(1.5)
 									return False	
-		
+		else:
+			return False
+			
 	def display(self,boardsize,disp):
 		BLACK = (  0,   0,   0)
 		WHITE = (255, 255, 255)
@@ -532,7 +535,7 @@ class UtilitiesSpace(Space):
 		self.owner = None
 
 	#Visit function, essentially display but in response to landing on a space	
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
@@ -619,7 +622,8 @@ class UtilitiesSpace(Space):
 									time.sleep(1.5)
 									return False
 		#If property is owned, pay rent
-		else:
+		elif (self.owner != str("Player " + str(player.name + 1))):
+			self.rent = roll * 4
 			while True:
 				fontsize = int(boardsize*.05)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
@@ -677,6 +681,8 @@ class UtilitiesSpace(Space):
 									pygame.display.update() #updates the screen
 									time.sleep(1.5)
 									return False	
+		else:
+			return False
 						
 	def display(self,boardsize,disp):
 		BLACK = (  0,   0,   0)
@@ -711,7 +717,7 @@ class UtilitiesSpace(Space):
 			costRect = cost.get_rect()
 			costRect.center = (int(boardsize / 2), int(5 * boardsize / 10))
 			disp.blit(cost,costRect)
-			rent = DISPLAYFONT.render('Rent: ' + self.rent, True, TEXTCOLOR, BGCOLOR)
+			rent = DISPLAYFONT.render('Rent: 4x dice roll', True, TEXTCOLOR, BGCOLOR)
 			rentRect = rent.get_rect()
 			rentRect.center = (int(boardsize / 2), int(3 * boardsize / 5))
 			disp.blit(rent,rentRect)
@@ -744,7 +750,7 @@ class TaxSpace(Space):
 			
 		
 	#Visit function, essentially display but in response to landing on a space	
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
@@ -855,7 +861,7 @@ class CommunityChestSpace(Space):
 		
 	
 	#Visit function, essentially display but in response to landing on a space
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
 		GREEN = (  0, 155,   0)
@@ -933,7 +939,7 @@ class ChanceSpace(Space):
 		
 		
 	#Visit function, essentially display but in response to landing on a space	
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
 		GREEN = (  0, 155,   0)
@@ -1013,7 +1019,7 @@ class FreeParkingSpace(Space):
 			
 
 	#Visit function, essentially display but in response to landing on a space
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
 		GREEN = (  0, 155,   0)
@@ -1104,7 +1110,7 @@ class JailSpace(Space):  #Still need to figure out what's going on with Jail Spa
 			
 	
 	#Visit function, essentially display but in response to landing on a space
-	def visit(self, boardsize, disp, player, money):
+	def visit(self, boardsize, disp, player, money, roll):
 		BLACK = (  0,   0,   0) 
 		WHITE = (255, 255, 255)
 		GREEN = (  0, 155,   0)

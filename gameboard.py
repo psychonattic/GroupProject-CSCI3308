@@ -90,7 +90,8 @@ class GameBoard:
 					if (self.players[self.turn].jail == False):
 						if (self.d1 == self.d2):
 							self.doubles += 1
-						self.players[self.turn].pos += self.d1 + self.d2	
+						self.players[self.turn].pos += self.d1 + self.d2
+						roll = 	self.d1 + self.d2
 						self.players[self.turn].pos %= 40
 						self.drawBoard(self.d1,self.d2)
 						if (self.players[self.turn].pos == 30) or (self.doubles == 3):
@@ -101,7 +102,7 @@ class GameBoard:
 							self.players[self.turn].money+=200
 							print("Pass Go, Collect $200")
 						if (self.players[self.turn].pos > 0 and self.players[self.turn].pos < 40):
-							self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money)
+							self.spaces[self.players[self.turn].pos].visit(self.boardsize, self.DISPLAY, self.players[self.turn], self.players[self.turn].money, roll)
 					if (self.players[self.turn].jail == True):
 						self.players[self.turn].jailcount += 1
 						if (self.players[self.turn].jailcount == 3):
