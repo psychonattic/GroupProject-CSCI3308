@@ -65,6 +65,37 @@ class GoSpace(Space):
 				if(event.type == QUIT):
 					sys.exit()
 
+		def visit(self, boardsize, disp, player, money):
+			BLACK = (  0,   0,   0) 
+			WHITE = (255, 255, 255)
+			TEXTCOLOR = WHITE
+			BGCOLOR = BLACK
+			cornersize = 1.5*(boardsize/12.0)
+			rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+			pygame.draw.rect(disp,BLACK,rect)
+			while True:
+				fontsize = int(boardsize*.06)
+				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
+				name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR) 
+				nameRect = name.get_rect() 
+				nameRect.center = (int(boardsize / 2), int(boardsize / 3)) 
+				disp.blit(name,nameRect)
+				fontsize = int(boardsize*.03)
+				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+				gotext = DISPLAYFONT.render("Collect $200", True, TEXTCOLOR, BGCOLOR)
+				gotextRect = gotext.get_rect() 
+				gotextRect.center = (int(boardsize / 2), int(boardsize / 2)) 
+				disp.blit(gotext,gotextRect)
+				pygame.display.update()
+				for event in pygame.event.get():
+					if event.type == MOUSEBUTTONDOWN: 
+						disp.fill(BLACK) 
+						return False
+					if(event.type == QUIT):
+						sys.exit()
+
+
+
 class PropertySpace(Space):
 	def __init__(self,name,picture,spaceType,color,price,rent,housecost): 
                 Space.__init__(self)
@@ -119,24 +150,24 @@ class PropertySpace(Space):
 				disp.blit(rent,rentRect)
 				price = DISPLAYFONT.render(str("Price: $" + str(self.price)), True, RED, BGCOLOR)
 				priceRect = price.get_rect()
-				priceRect.center = (int(boardsize / 2), int(5 * boardsize / 10))
+				priceRect.center = (int(boardsize / 2), int(5.5 * boardsize / 10))
 				disp.blit(price, priceRect)
 				houses = DISPLAYFONT.render(str("Houses: " + str(self.houses)), True, TEXTCOLOR, BGCOLOR)
 				housesRect = houses.get_rect()
-				housesRect.center = (int(boardsize / 4), int(6 * boardsize / 10))
+				housesRect.center = (int(boardsize / 4), int(6.6 * boardsize / 10))
 				disp.blit(houses,housesRect)
 				#Display user's available money
 				moneyAv = DISPLAYFONT.render(str("Available Money: $" + str(money)), True, GREEN, BGCOLOR)
 				moneyRect = moneyAv.get_rect()
-				moneyRect.center = (int(3 * boardsize / 4), int(6 * boardsize /10))
+				moneyRect.center = (int(boardsize / 2), int(6 * boardsize /10))
 				disp.blit(moneyAv, moneyRect)
 				housecost = DISPLAYFONT.render(str("House Cost: $" + str(self.housecost)), True, TEXTCOLOR, BGCOLOR)
 				housecostRect = housecost.get_rect()
-				housecostRect.center = (int(3 * boardsize / 4), int(5 * boardsize/ 10))
+				housecostRect.center = (int(2.8 * boardsize / 4), int(5 * boardsize/ 10))
 				disp.blit(housecost,housecostRect)
 				mortgage = DISPLAYFONT.render(str("Mortgage: $" + str(self.mortgage)), True, TEXTCOLOR, BGCOLOR)
 				mortgageRect = mortgage.get_rect()
-				mortgageRect.center = (int(boardsize / 2), int(6.6 * boardsize/ 10))
+				mortgageRect.center = (int(2.8 * boardsize / 4), int(6.6 * boardsize/ 10))
 				disp.blit(mortgage,mortgageRect)
 				fontsize = int(boardsize*.04)
 				
@@ -184,7 +215,7 @@ class PropertySpace(Space):
 		#If property is owned, pay rent
 		else:
 			while True:
-				fontsize = int(boardsize*.05)
+				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
 				name = DISPLAYFONT.render(str("You Landed On: " + self.name), True, TEXTCOLOR, BGCOLOR) 
 				nameRect = name.get_rect() 
@@ -370,7 +401,7 @@ class RailRoadSpace(Space):
 				
 				#Buttons to buy or exit
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
-				buyPropSurf = DISPLAYFONT.render('Buy Railroad?', True, TEXTCOLOR, GREEN) 
+				buyPropSurf = DISPLAYFONT.render('Buy Railroad', True, TEXTCOLOR, GREEN) 
 				buyPropRect = buyPropSurf.get_rect()
 				buyPropRect.center = (int(boardsize / 2), (boardsize/10)*7.8)
 				disp.blit(buyPropSurf,buyPropRect)
@@ -579,7 +610,7 @@ class UtilitiesSpace(Space):
 				#Buttons to buy or exit
 				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf',fontsize)
-				buyPropSurf = DISPLAYFONT.render('Buy Utility?', True, TEXTCOLOR, GREEN) 
+				buyPropSurf = DISPLAYFONT.render('Buy Utility', True, TEXTCOLOR, GREEN) 
 				buyPropRect = buyPropSurf.get_rect()
 				buyPropRect.center = (int(boardsize / 2), (boardsize/10)*7.8)
 				disp.blit(buyPropSurf,buyPropRect)
