@@ -12,7 +12,7 @@ import csv
 def loadSpacesError(isDefault):
     if not isDefault:
         #Tries to load the default theme if an error arises in another theme
-        print "Attempting to load default theme"
+        print "Attempting to load default theme."
         return loadSpaces("default")
     else:
         #If there's an issue with loading the default theme, exit the program
