@@ -7,7 +7,7 @@
  * Joel Barkley: Psychonattic
  * Nathan Carmine: ncarmine
 
-## Mod Monopoly (Mod-opoly)
+## Modular Monopoly (Mod-opoly)
 
 ## Description:
 An open source, customizable Monopoly clone written in pygame
