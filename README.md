@@ -7,7 +7,7 @@
  * Joel Barkley: Psychonattic
  * Nathan Carmine: ncarmine
 
-## Mod Monopoly
+## Mod Monopoly (Mod-opoly)
 
 ## Description:
 An open source, customizable Monopoly clone written in pygame
@@ -91,6 +91,12 @@ Agile Process
 ## Project plan: 
 ![alt text](https://cloud.githubusercontent.com/assets/14183096/13134718/e07562dc-d5c6-11e5-95ed-69e5f7f78775.png "Trello Board Screenshot")
 
+##RUN:
+* Download the git project and extract it.
+* In the terminal, navigate to the directory GroupProject-CSCI3308-master
+* Run the command: python main.py
+* To run a custom theme, add the theme name after main.py.  For example run: python main.py high-res for a high res version of the board.
+
 ##THEMES:
 To create a new theme:
  - Create a new directory under `./images/themes` with the name of your theme. Eg: `./images/themes/MyTheme`
@@ -119,10 +125,3 @@ To run the program with your selected theme:
 `python main.py MyTheme`
 
 If your theme does not work, the game will automatically revert to the default theme. If you remove, add, or modify anything in the `./images/themes/default/` directory, you may have to reinstall the game files.
-
-##TESTING:
-  - Automated Testing can only be run in the ["testcase" branch](https://github.com/John-Gallagher/GroupProject-CSCI3308/tree/testcase) of the repository. 
-  - Link to [google spreadsheet](https://docs.google.com/spreadsheets/d/1766dySpz8GaINldfmhx8DVYB1YtJl12H6tJG3r4XApc/edit?ts=57045bf5#gid=0 ) for User Acceptance Tests 
-	- Click on tabs at the bottom of the sheet to switch between tests.
-  
-  - If the link doesn't work for some reason, we've included a PDF file of our User Acceptance Tests in the testcase branch of the repository.
