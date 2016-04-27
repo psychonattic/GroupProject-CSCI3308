@@ -656,7 +656,7 @@ class UtilitiesSpace(Space):
 		elif (self.owner != str("Player " + str(player.name + 1))):
 			self.rent = roll * 4
 			while True:
-				fontsize = int(boardsize*.05)
+				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
 				name = DISPLAYFONT.render(str("You Landed On: " + self.name), True, TEXTCOLOR, BGCOLOR) 
 				nameRect = name.get_rect() 
