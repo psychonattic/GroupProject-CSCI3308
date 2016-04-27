@@ -65,34 +65,34 @@ class GoSpace(Space):
 				if(event.type == QUIT):
 					sys.exit()
 
-		def visit(self, boardsize, disp, player, money, roll):
-			BLACK = (  0,   0,   0) 
-			WHITE = (255, 255, 255)
-			TEXTCOLOR = WHITE
-			BGCOLOR = BLACK
-			cornersize = 1.5*(boardsize/12.0)
-			rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
-			pygame.draw.rect(disp,BLACK,rect)
-			while True:
-				fontsize = int(boardsize*.06)
-				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
-				name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR) 
-				nameRect = name.get_rect() 
-				nameRect.center = (int(boardsize / 2), int(boardsize / 3)) 
-				disp.blit(name,nameRect)
-				fontsize = int(boardsize*.03)
-				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
-				gotext = DISPLAYFONT.render("Collect $200", True, TEXTCOLOR, BGCOLOR)
-				gotextRect = gotext.get_rect() 
-				gotextRect.center = (int(boardsize / 2), int(boardsize / 2)) 
-				disp.blit(gotext,gotextRect)
-				pygame.display.update()
-				for event in pygame.event.get():
-					if event.type == MOUSEBUTTONDOWN: 
-						disp.fill(BLACK) 
-						return False
-					if(event.type == QUIT):
-						sys.exit()
+	def visit(self, boardsize, disp, player, money, roll):
+		BLACK = (  0,   0,   0) 
+		WHITE = (255, 255, 255)
+		TEXTCOLOR = WHITE
+		BGCOLOR = BLACK
+		cornersize = 1.5*(boardsize/12.0)
+		rect = pygame.Rect(cornersize,cornersize,boardsize-(2*cornersize),boardsize-(2*cornersize))
+		pygame.draw.rect(disp,BLACK,rect)
+		while True:
+			fontsize = int(boardsize*.06)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)  
+			name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR) 
+			nameRect = name.get_rect() 
+			nameRect.center = (int(boardsize / 2), int(boardsize / 3)) 
+			disp.blit(name,nameRect)
+			fontsize = int(boardsize*.03)
+			DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
+			gotext = DISPLAYFONT.render("Collect $200", True, TEXTCOLOR, BGCOLOR)
+			gotextRect = gotext.get_rect() 
+			gotextRect.center = (int(boardsize / 2), int(boardsize / 2)) 
+			disp.blit(gotext,gotextRect)
+			pygame.display.update()
+			for event in pygame.event.get():
+				if event.type == MOUSEBUTTONDOWN: 
+					disp.fill(BLACK) 
+					return False
+				if(event.type == QUIT):
+					sys.exit()
 
 
 
