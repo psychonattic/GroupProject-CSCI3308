@@ -580,7 +580,7 @@ class UtilitiesSpace(Space):
 		if(self.owner == None):
 			
 			while True:
-				fontsize = int(boardsize*.06)
+				fontsize = int(boardsize*.04)
 				DISPLAYFONT = pygame.font.Font('freesansbold.ttf', fontsize)
 				name = DISPLAYFONT.render(self.name, True, TEXTCOLOR, BGCOLOR)
 				nameRect = name.get_rect()
