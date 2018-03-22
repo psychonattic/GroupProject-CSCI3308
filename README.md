@@ -93,7 +93,7 @@ Agile Process
 
 ##RUN:
 * Download the git project and extract it.
-* In the terminal, navigate to the directory GroupProject-CSCI3308-master
+* In the terminal, navigate to the directory Mod-Opoly-master
 * Run the command: python main.py
 * To run a custom theme, add the theme name after main.py.  For example run: python main.py high-res for a high res version of the board.
 
